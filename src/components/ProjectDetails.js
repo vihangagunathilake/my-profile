@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ProjectDetails({ project, onBack }) {
-  const [activeTab, setActiveTab] = useState('technical');
-
   if (!project) return null;
 
-  const { technical, product } = project;
+  const { product, techStackTables, involvementSection } = project;
 
   return (
     <section className="detail-view container">
+      {/* Back Button */}
       <div className="back-btn" onClick={onBack}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
           <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -17,306 +16,301 @@ function ProjectDetails({ project, onBack }) {
         Back to Portfolio
       </div>
 
+      {/* Header Banner */}
       <div className="detail-header">
-        <h1 style={{ fontSize: '2.75rem', marginBottom: '0.5rem' }}>{project.title}</h1>
-        <div className="detail-meta">
-          {project.status !== 'Commercial System' && (
-            <span className={`project-status-badge ${project.status === 'Coming Soon' ? 'badge-upcoming' : 'badge-active'}`} style={{ position: 'static' }}>
-              {project.status}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+          <h1 className="gradient-text" style={{ fontSize: '3rem', margin: 0, fontWeight: 800, letterSpacing: '-1px' }}>
+            {project.title}
+          </h1>
+        </div>
+
+        <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '850px', margin: '0 0 1.5rem 0', lineHeight: 1.6 }}>
+          {project.subtitle || 'Enterprise Multi-Branch Experience & Queue Management System'}
+        </p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '2rem' }}>
+          {project.tags && project.tags.map((tag, idx) => (
+            <span className="project-tag" key={idx} style={{ padding: '0.35rem 0.85rem', fontSize: '0.85rem', borderRadius: '50px' }}>
+              {tag}
             </span>
-          )}
-          <span style={{ color: 'var(--text-secondary)', fontWeight: '500' }}>
-            {project.subtitle || 'Enterprise Software Solution'}
-          </span>
+          ))}
+        </div>
+
+        {/* Impact Callout Banner */}
+        {product?.impact && (
+          <div style={{
+            padding: '1.5rem 2rem',
+            background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%)',
+            border: '1px solid rgba(6, 182, 212, 0.25)',
+            borderRadius: '16px',
+            backdropFilter: 'blur(12px)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.25rem',
+            marginBottom: '2rem'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              color: '#fff'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--accent-cyan)', fontWeight: 700, marginBottom: '0.25rem' }}>
+                Impact & Ownership Summary
+              </div>
+              <div style={{ fontSize: '1.05rem', color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.5 }}>
+                {product.impact}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Legend / Section Quick Guide */}
+        <div style={{
+          padding: '1.25rem 1.75rem',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-color)',
+          borderRadius: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.5rem',
+          flexWrap: 'wrap',
+          fontSize: '0.95rem'
+        }}>
+          <div style={{ fontWeight: 700, color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px', fontSize: '0.85rem' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            Legend
+          </div>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', color: 'var(--text-secondary)' }}>
+            <a href="#technologies-used" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600 }}>
+              <span style={{ color: 'var(--accent-cyan)' }}>1.</span> Technologies Used
+            </a>
+            <span style={{ color: 'var(--border-color)' }}>|</span>
+            <a href="#my-involvement" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600 }}>
+              <span style={{ color: 'var(--accent-purple)' }}>2.</span> My Involvement
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="detail-grid">
-        <div className="detail-main">
-          {/* Tabs Navigation */}
-          <div className="tabs-container">
-            <button
-              className={`tab-btn ${activeTab === 'technical' ? 'active' : ''}`}
-              onClick={() => setActiveTab('technical')}
-            >
-              Technical Specifications
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'product' ? 'active' : ''}`}
-              onClick={() => setActiveTab('product')}
-            >
-              Product Overview
-            </button>
-            {product?.myInvolvement && (
-              <button
-                className={`tab-btn ${activeTab === 'involvement' ? 'active' : ''}`}
-                onClick={() => setActiveTab('involvement')}
-              >
-                My Involvement
-              </button>
-            )}
+      {/* Main Content Layout */}
+      <div className="detail-grid" style={{ marginTop: '3rem' }}>
+        <div className="detail-main" style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+          
+          {/* SECTION 1: TECHNOLOGIES USED */}
+          <div id="technologies-used" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+            <div style={{ borderBottom: '2px solid var(--border-color)', paddingBottom: '0.75rem' }}>
+              <h2 style={{ fontSize: '2.25rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <span style={{ color: 'var(--accent-cyan)' }}>1.</span> Technologies Used
+              </h2>
+            </div>
+
+            {/* Backend Table */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(6, 182, 212, 0.1)', color: 'var(--accent-cyan)' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-cyan)' }}>Backend (ts-queue)</h3>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>Core Spring Boot modular monolith framework</p>
+                </div>
+              </div>
+
+              {techStackTables?.backend ? (
+                <div style={{ overflowX: 'auto', border: '1px solid var(--border-color)', borderRadius: '14px', background: 'var(--bg-card)' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.95rem' }}>
+                    <thead>
+                      <tr style={{ background: 'rgba(6, 182, 212, 0.08)', borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '1rem 1.5rem', width: '35%', color: 'var(--accent-cyan)', fontFamily: 'var(--font-heading)' }}>Area</th>
+                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>Technology Stack</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {techStackTables.backend.map((row, idx) => (
+                        <tr key={idx} style={{ borderBottom: idx !== techStackTables.backend.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
+                          <td style={{ padding: '0.9rem 1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{row.area}</td>
+                          <td style={{ padding: '0.9rem 1.5rem', color: 'var(--text-secondary)' }}>
+                            <span style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.25rem 0.75rem', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.05)', color: 'var(--text-primary)', fontWeight: 500 }}>
+                              {row.technology}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Frontend Table */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(168, 85, 247, 0.1)', color: 'var(--accent-purple)' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                    <line x1="9" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="15" x2="21" y2="15"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-purple)' }}>Frontend (ts-queue-portal)</h3>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>React 18 SPA with real-time MQTT telemetry</p>
+                </div>
+              </div>
+
+              {techStackTables?.frontend ? (
+                <div style={{ overflowX: 'auto', border: '1px solid var(--border-color)', borderRadius: '14px', background: 'var(--bg-card)' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.95rem' }}>
+                    <thead>
+                      <tr style={{ background: 'rgba(168, 85, 247, 0.08)', borderBottom: '1px solid var(--border-color)' }}>
+                        <th style={{ padding: '1rem 1.5rem', width: '35%', color: 'var(--accent-purple)', fontFamily: 'var(--font-heading)' }}>Area</th>
+                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>Technology Stack</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {techStackTables.frontend.map((row, idx) => (
+                        <tr key={idx} style={{ borderBottom: idx !== techStackTables.frontend.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
+                          <td style={{ padding: '0.9rem 1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>{row.area}</td>
+                          <td style={{ padding: '0.9rem 1.5rem', color: 'var(--text-secondary)' }}>
+                            <span style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.25rem 0.75rem', borderRadius: '6px', border: '1px solid rgba(255, 255, 255, 0.05)', color: 'var(--text-primary)', fontWeight: 500 }}>
+                              {row.technology}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
+            </div>
           </div>
 
-          {activeTab === 'involvement' ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', animation: 'fadeIn 0.4s ease-out' }}>
-              <div>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', color: 'var(--accent-cyan)' }}>
-                  My Involvement
-                </h2>
-                <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '1.05rem', lineHeight: '1.65' }}>
-                  {product.myInvolvement.map((item, idx) => (
-                    <li key={idx} style={{ color: 'var(--text-primary)' }}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {product?.impact && (
-                <div>
-                  <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', color: 'var(--accent-purple)' }}>Engineering Impact & Contributions</h2>
-                  <div style={{ padding: '1.5rem', background: 'rgba(168, 85, 247, 0.06)', borderLeft: '4px solid var(--accent-purple)', borderRadius: '0 12px 12px 0' }}>
-                    <p style={{ fontSize: '1.05rem', color: 'var(--text-primary)', margin: 0, lineHeight: '1.7', fontWeight: '500' }}>
-                      {product.impact}
-                    </p>
-                  </div>
-                </div>
-              )}
+          {/* SECTION 2: MY INVOLVEMENT */}
+          <div id="my-involvement" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+            <div style={{ borderBottom: '2px solid var(--border-color)', paddingBottom: '0.75rem' }}>
+              <h2 style={{ fontSize: '2.25rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <span style={{ color: 'var(--accent-purple)' }}>2.</span> My Involvement
+              </h2>
             </div>
-          ) : activeTab === 'technical' ? (
-            <div className="tech-overview">
-              <div style={{ padding: '1.5rem', background: 'rgba(6, 182, 212, 0.05)', borderLeft: '4px solid var(--accent-cyan)', borderRadius: '0 12px 12px 0' }}>
-                <p style={{ fontSize: '1.1rem', color: 'var(--text-primary)', margin: 0, lineHeight: '1.6' }}>
-                  {technical?.overview || 'Service Gateway is built as a modular monolithic application that separates business domains into independent modules while maintaining a single deployable application. This architecture keeps the system maintainable today while allowing future migration to microservices if required.'}
-                </p>
-              </div>
 
-              <div className="tech-grid-2">
-                <div className="tech-card">
-                  <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                      <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                      <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                      <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
-                    Backend & Data Layer
-                  </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {technical?.backendItems ? (
-                      technical.backendItems.map((item, idx) => (
-                        <div className="tech-list-item" key={idx}>
-                          <span className="tech-list-title">{item.title}</span>
-                          <span className="tech-list-desc">{item.desc}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Java & Spring Boot</span>
-                          <span className="tech-list-desc">Core framework and language for robust enterprise development.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Spring Security</span>
-                          <span className="tech-list-desc">JWT Authentication & Role-Based Authorization.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Spring Data JPA</span>
-                          <span className="tech-list-desc">Hibernate ORM with MySQL database.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Apache Kafka</span>
-                          <span className="tech-list-desc">Event-driven notification processing.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Spring Boot Actuator</span>
-                          <span className="tech-list-desc">Application health and metrics.</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
+            {/* Backend Involvement */}
+            <div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+                Backend
+              </h3>
 
-                <div className="tech-card">
-                  <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--accent-purple)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                      <line x1="9" y1="3" x2="9" y2="21"></line>
-                      <line x1="9" y1="9" x2="21" y2="9"></line>
-                      <line x1="9" y1="15" x2="21" y2="15"></line>
-                    </svg>
-                    Frontend & UI Layer
-                  </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {technical?.frontendItems ? (
-                      technical.frontendItems.map((item, idx) => (
-                        <div className="tech-list-item" key={idx}>
-                          <span className="tech-list-title">{item.title}</span>
-                          <span className="tech-list-desc">{item.desc}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">React</span>
-                          <span className="tech-list-desc">Modern single page application development.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Context API</span>
-                          <span className="tech-list-desc">Global state management.</span>
-                        </div>
-                        <div className="tech-list-item">
-                          <span className="tech-list-title">Responsive UI</span>
-                          <span className="tech-list-desc">Tailored interfaces for Admins, Employees, and Customers.</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Architecture</h2>
-                <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {technical?.architecture ? (
-                    technical.architecture.map((item, idx) => <li key={idx}>{item}</li>)
-                  ) : (
-                    <>
-                      <li><strong>Modular Monolithic Architecture</strong> — Logical separation of domains.</li>
-                      <li><strong>Layered Architecture</strong> — Clear separation of concerns (Controller → Service → Repository).</li>
-                      <li><strong>RESTful API Design</strong> — Clean, standard resource endpoints.</li>
-                      <li><strong>Domain-Driven Module Separation</strong> — Isolates domains to facilitate future microservices migration if required.</li>
-                      <li><strong>Event-Driven Notifications</strong> — Managed asynchronously via Kafka.</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-
-              <div>
-                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Infrastructure & Deployment</h2>
-                <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {technical?.infrastructure ? (
-                    technical.infrastructure.map((item, idx) => <li key={idx}>{item}</li>)
-                  ) : (
-                    <>
-                      <li><strong>Backend Deployment</strong> — Packaged as a WAR application and deployed on Apache Tomcat.</li>
-                      <li><strong>Frontend Web Server</strong> — Served through Nginx.</li>
-                      <li><strong>Host OS</strong> — Hosted on Red Hat Enterprise Linux (RHEL).</li>
-                      <li><strong>Reverse Proxy</strong> — Configured using Nginx as a reverse proxy.</li>
-                      <li><strong>Environment-Based Configuration</strong> — Separate profiles for development and production.</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-
-              <div>
-                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Security</h2>
-                <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {technical?.security ? (
-                    technical.security.map((item, idx) => <li key={idx}>{item}</li>)
-                  ) : (
-                    <>
-                      <li><strong>JWT-Based Authentication</strong> — Secure stateless session management.</li>
-                      <li><strong>Role-Based Access Control (RBAC)</strong> — Dynamic permissions matching roles.</li>
-                      <li><strong>Protected REST APIs</strong> — Guarded endpoints using Spring Security.</li>
-                      <li><strong>Secure Password Storage</strong> — BCrypt cryptographic password hashing.</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-              {/* Tagline */}
-              <div style={{ padding: '1.5rem', background: 'rgba(6, 182, 212, 0.05)', borderLeft: '4px solid var(--accent-cyan)', borderRadius: '0 12px 12px 0', marginBottom: '0.5rem' }}>
-                <p style={{ fontSize: '1.2rem', fontWeight: '600', color: 'var(--text-primary)', margin: 0 }}>
-                  {product?.tagline || 'Book a service. Watch it run itself.'}
-                </p>
-              </div>
-
-              {/* What is it */}
-              <div>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>What is it?</h2>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '1.5rem', lineHeight: '1.7' }}>
-                  {product?.whatIsIt || `Imagine a bike service center. A customer books a "Full Service." That one booking actually means three different jobs, at three different work bays, done by three different people, at three different times.`}
-                </p>
-              </div>
-
-              {/* Who uses it */}
-              <div>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Who uses it?</h2>
-                <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {product?.whoUsesIt ? (
-                    product.whoUsesIt.map((user, idx) => <li key={idx}>{user}</li>)
-                  ) : (
-                    <>
-                      <li><strong>Admins</strong> — set up the business, create services, and manage everything.</li>
-                      <li><strong>Agents (employees)</strong> — log in at their work station and complete the jobs sent to them.</li>
-                      <li><strong>Customers</strong> — book appointments.</li>
-                    </>
-                  )}
-                </ul>
-              </div>
-
-              {/* What can it do / Key Features */}
-              <div>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Key Features & Capabilities</h2>
+              {involvementSection?.backend ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  {product?.features ? (
-                    product.features.map((feat, idx) => (
-                      <div key={idx}>
-                        <h3 style={{ color: 'var(--accent-cyan)', fontSize: '1.2rem', marginBottom: '0.5rem' }}>{feat.title}</h3>
-                        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>{feat.desc}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <>
-                      <div>
-                        <h3 style={{ color: 'var(--accent-cyan)', fontSize: '1.2rem', marginBottom: '0.5rem' }}>Set up your business, your way</h3>
-                        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>Add locations, work stations, staff, roles, and working days. Build the business exactly how it really runs.</p>
-                      </div>
-                      <div>
-                        <h3 style={{ color: 'var(--accent-cyan)', fontSize: '1.2rem', marginBottom: '0.5rem' }}>Set price and time once, done forever</h3>
-                        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>Every service has a cost and a duration. Combine several services into a ready-made package (a "workflow"), like "Full Bike Service."</p>
-                      </div>
-                    </>
-                  )}
+                  {involvementSection.backend.map((item, idx) => (
+                    <div key={idx} style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-color)',
+                      borderLeft: '4px solid var(--accent-cyan)',
+                      borderRadius: '0 14px 14px 0',
+                      padding: '1.5rem',
+                      backdropFilter: 'blur(10px)'
+                    }}>
+                      <h4 style={{ fontSize: '1.2rem', color: 'var(--accent-cyan)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>
+                        {item.topic}
+                      </h4>
+                      <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
+                        {item.points.map((pt, pIdx) => (
+                          <li key={pIdx}>
+                            {pt.split(/(@NamedQuery|@NamedNativeQuery|JpaRepository|api\/impl|SP_TRANSFER_USER|rp_agent_wise_table|rp_agent_attendance_table|FootfallDevice|DailyPersonAttribute|DetectedPerson|MatchedDetectedPerson|CubeQueryRequest|V9\/PCS\/CubeQuery)/g).map((chunk, cIdx) => (
+                              ['@NamedQuery', '@NamedNativeQuery', 'JpaRepository', 'api/impl', 'SP_TRANSFER_USER', 'rp_agent_wise_table', 'rp_agent_attendance_table', 'FootfallDevice', 'DailyPersonAttribute', 'DetectedPerson', 'MatchedDetectedPerson', 'CubeQueryRequest', 'V9/PCS/CubeQuery'].includes(chunk) ? (
+                                <code key={cIdx} style={{ background: 'rgba(6, 182, 212, 0.15)', color: 'var(--accent-cyan)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.9rem', fontFamily: 'monospace' }}>
+                                  {chunk}
+                                </code>
+                              ) : chunk
+                            ))}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              </div>
-
-              {/* My Involvement */}
-              {product?.myInvolvement && (
-                <div>
-                  <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', color: 'var(--accent-cyan)' }}>My Involvement</h2>
-                  <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '1.05rem', lineHeight: '1.6' }}>
-                    {product.myInvolvement.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Impact & Commits */}
-              {product?.impact && (
-                <div>
-                  <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', color: 'var(--accent-purple)' }}>Engineering Impact & Contributions</h2>
-                  <div style={{ padding: '1.5rem', background: 'rgba(168, 85, 247, 0.06)', borderLeft: '4px solid var(--accent-purple)', borderRadius: '0 12px 12px 0' }}>
-                    <p style={{ fontSize: '1.05rem', color: 'var(--text-primary)', margin: 0, lineHeight: '1.7', fontWeight: '500' }}>
-                      {product.impact}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Why it's useful */}
-              <div>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Why it's useful</h2>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '1.5rem', lineHeight: '1.7' }}>
-                  {product?.whyUseful || `Most booking apps stop once an appointment is confirmed. Service Gateway keeps going — it plans out exactly who does what, where, and when.`}
-                </p>
-              </div>
+              ) : null}
             </div>
-          )}
+
+            {/* Frontend Involvement */}
+            <div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--accent-purple)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="9" y1="3" x2="9" y2="21"></line>
+                  <line x1="9" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="15" x2="21" y2="15"></line>
+                </svg>
+                Frontend
+              </h3>
+
+              {involvementSection?.frontend ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {involvementSection.frontend.map((item, idx) => (
+                    <div key={idx} style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-color)',
+                      borderLeft: '4px solid var(--accent-purple)',
+                      borderRadius: '0 14px 14px 0',
+                      padding: '1.5rem',
+                      backdropFilter: 'blur(10px)'
+                    }}>
+                      <h4 style={{ fontSize: '1.2rem', color: 'var(--accent-purple)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)' }}>
+                        {item.topic}
+                      </h4>
+                      <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
+                        {item.points.map((pt, pIdx) => (
+                          <li key={pIdx}>
+                            {pt.split(/(Redux Thunk|paho-mqtt|MUI Datatables|React-Konva|React Router DOM v6|Firebase Hosting|PrimeReact|ApexCharts|Chart\.js)/g).map((chunk, cIdx) => (
+                              ['Redux Thunk', 'paho-mqtt', 'MUI Datatables', 'React-Konva', 'React Router DOM v6', 'Firebase Hosting', 'PrimeReact', 'ApexCharts', 'Chart.js'].includes(chunk) ? (
+                                <code key={cIdx} style={{ background: 'rgba(168, 85, 247, 0.15)', color: 'var(--accent-purple)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.9rem', fontFamily: 'monospace' }}>
+                                  {chunk}
+                                </code>
+                              ) : chunk
+                            ))}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+
         </div>
 
+        {/* Sidebar Card */}
         <div>
           <div className="detail-sidebar-card">
             <h3>Project Specifications</h3>
@@ -324,33 +318,21 @@ function ProjectDetails({ project, onBack }) {
             <div className="spec-list">
               <div className="spec-item">
                 <span className="spec-label">Category</span>
-                <span className="spec-value" style={{ textTransform: 'capitalize' }}>{project.category} Project</span>
+                <span className="spec-value" style={{ textTransform: 'capitalize' }}>{project.category} System</span>
               </div>
-
-              {project.status !== 'Commercial System' && (
-                <div className="spec-item">
-                  <span className="spec-label">Status</span>
-                  <span className="spec-value">{project.status}</span>
-                </div>
-              )}
 
               {project.accessInfo && (
                 <div className="spec-item">
-                  <span className="spec-label">Access & Confidentiality</span>
-                  <span className="spec-value" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>{project.accessInfo}</span>
-                </div>
-              )}
-
-              {project.id === 'gateway-provider' && (
-                <div className="spec-item">
-                  <span className="spec-label">Access Demo</span>
-                  <span className="spec-value" style={{ fontSize: '0.85rem' }}>Use username test@gmail.com and password test123 as credentials.</span>
+                  <span className="spec-label">Confidentiality</span>
+                  <span className="spec-value" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                    {project.accessInfo}
+                  </span>
                 </div>
               )}
 
               {project.tags && (
                 <div className="spec-item">
-                  <span className="spec-label">Tech Stack</span>
+                  <span className="spec-label">Primary Stack</span>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginTop: '0.5rem' }}>
                     {project.tags.map((tag, idx) => (
                       <span className="project-tag" key={idx}>{tag}</span>
@@ -360,29 +342,18 @@ function ProjectDetails({ project, onBack }) {
               )}
             </div>
 
-            {project.link ? (
-              <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                Launch Live Service
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-            ) : (
-              <div style={{
-                background: 'rgba(6, 182, 212, 0.05)',
-                border: '1px solid rgba(6, 182, 212, 0.2)',
-                borderRadius: '12px',
-                padding: '1rem',
-                textAlign: 'center',
-                color: 'var(--accent-cyan)',
-                fontSize: '0.85rem',
-                fontWeight: '500'
-              }}>
-                Commercial deployment protected under NDA. Case study details shown.
-              </div>
-            )}
+            <div style={{
+              background: 'rgba(6, 182, 212, 0.05)',
+              border: '1px solid rgba(6, 182, 212, 0.2)',
+              borderRadius: '12px',
+              padding: '1rem',
+              textAlign: 'center',
+              color: 'var(--accent-cyan)',
+              fontSize: '0.85rem',
+              fontWeight: '500'
+            }}>
+              Commercial platform deployed across enterprise banking & government branches.
+            </div>
           </div>
         </div>
       </div>
