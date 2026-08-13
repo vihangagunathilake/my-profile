@@ -9,7 +9,7 @@ import ProjectDetails from './components/ProjectDetails';
 const PROJECTS_DATA = [
   {
     id: 'queue-management-system',
-    title: 'TS Queue',
+    title: 'Queue Management System',
     category: 'commercial',
     status: 'Commercial System',
     thumbnail: '/logo.svg',
@@ -18,6 +18,8 @@ const PROJECTS_DATA = [
     description: 'Enterprise-grade, multi-branch Queue Management and Branch Experience Platform used by banks, service centers, and government organizations. Owned & built the real-time Branch Dashboard end-to-end over ~4 years.',
     accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
     techStackTables: {
+      backendTitle: 'Backend',
+      frontendTitle: 'Frontend',
       backend: [
         { area: 'Language', technology: 'Java' },
         { area: 'Framework', technology: 'Spring Boot 2.x (Modular Maven project)' },
@@ -213,111 +215,171 @@ const PROJECTS_DATA = [
     status: 'Commercial System',
     thumbnail: '/logo.svg',
     subtitle: 'Customer Experience & Quality Assurance Platform',
-    tags: ['React', 'Spring Boot', 'Kafka', 'MySQL', 'Chart.js', 'Alert Engine'],
-    description: 'Omnichannel customer sentiment & survey platform supporting kiosk rating screens, QR code surveys, Net Promoter Score (NPS) calculation, and instant manager alerts.',
-    accessInfo: 'Commercial deployment protected by NDA. Detailed functional breakdown available below.',
-    technical: {
-      overview: 'High-concurrency feedback processing pipeline engineered to aggregate thousands of survey responses across physical kiosks and mobile endpoints in real time with threshold-driven escalation.',
-      backendItems: [
-        { title: 'Spring Boot & Java 17', desc: 'RESTful API engine handling high-throughput survey submissions and scoring calculations.' },
-        { title: 'Apache Kafka Event Stream', desc: 'Decoupled event pipeline streaming low-rating events to real-time notification listeners.' },
-        { title: 'Spring Data JPA & MySQL', desc: 'Optimized schema for multi-branch survey templates, question logic, and response logs.' },
-        { title: 'Rule-Based Alert Engine', desc: 'Triggers instant email & SMS notifications to branch managers when negative feedback occurs.' }
+    tags: ['Java', 'Spring Boot 2.x', 'React 18', 'Redux', 'MUI v5', 'MQTT', 'MySQL Events', 'Apache POI', 'Bitbucket Pipelines'],
+    description: 'Enterprise customer feedback application collecting real-time ratings via kiosks and mobile forms, calculating CSAT and weighted SLA scores, and delivering real-time manager alerts over MQTT.',
+    accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
+    techStackTables: {
+      backendTitle: 'Backend',
+      frontendTitle: 'Frontend',
+      backend: [
+        { area: 'Language', technology: 'Java' },
+        { area: 'Framework', technology: 'Spring Boot 2.x (modular Maven multi-module project)' },
+        { area: 'Persistence', technology: 'Spring Data JPA / Hibernate, MySQL' },
+        { area: 'Security', technology: 'Spring Security + JWT' },
+        { area: 'Reporting', technology: 'Apache POI (Excel export)' },
+        { area: 'Database Automation', technology: 'MySQL Events (scheduled stored logic) + Materialized-view style summary tables (f_mv_feedback_*)' },
+        { area: 'SMS', technology: 'SMS integration via Kiosk/Ticket pipeline' },
+        { area: 'Build & Deploy', technology: 'Maven, Bitbucket Pipelines → SFTP deploy to Apache Tomcat' }
       ],
-      frontendItems: [
-        { title: 'React & Touch Kiosk Mode', desc: 'Ultra-responsive 4-button smiley rating interface optimized for high-traffic physical kiosks.' },
-        { title: 'Dynamic Form Builder', desc: 'Drag-and-drop survey wizard supporting CSAT, NPS, CES, and custom open-ended questions.' },
-        { title: 'Analytics & Sentiment Dashboard', desc: 'Real-time charts, branch comparison matrix, and automated sentiment word clouds.' }
+      frontend: [
+        { area: 'Framework', technology: 'React 18 (Create React App)' },
+        { area: 'State Management', technology: 'Redux + Redux Thunk' },
+        { area: 'UI Library', technology: 'Material UI (MUI v5), React Bootstrap' },
+        { area: 'Charts', technology: 'ApexCharts (react-apexcharts)' },
+        { area: 'Real-time', technology: 'MQTT (mqtt.js / paho-mqtt)' },
+        { area: 'Data Tables', technology: 'MUI Datatables (server-side pagination & sorting)' },
+        { area: 'HTTP Client', technology: 'Axios' },
+        { area: 'Routing', technology: 'React Router DOM v6' },
+        { area: 'Date Handling', technology: 'Moment.js, React Datepicker' },
+        { area: 'Notifications', technology: 'React Hot Toast, SweetAlert2' },
+        { area: 'CI/CD', technology: 'Bitbucket Pipelines → SFTP deploy + Slack notifications' }
+      ]
+    },
+    involvementSection: {
+      backend: [
+        {
+          topic: 'Feedback Data Model & API Architecture',
+          points: [
+            'Built JPA entities (Feedback, FeedbackQuestion, FeedbackAnswer, Imoji, Weightage, QuestionsAndAnswers) and their Spring Data JPA repositories with custom @Query JPQL/SQL methods'
+          ]
+        },
+        {
+          topic: 'Sub-Questions Feature & Dynamic Endpoints',
+          points: [
+            'Extended FeedbackQuestion and FeedbackAnswer entities; designed the hierarchical question structure and added new API endpoints in FeedbackController (touched 21 files in a single feature commit)'
+          ]
+        },
+        {
+          topic: 'Suggestions Capture & Service Layer Integration',
+          points: [
+            'Added suggestion field to feedback submissions and wired it through the service layer'
+          ]
+        },
+        {
+          topic: 'Dashboard Aggregation Services',
+          points: [
+            'Built FeedbackService methods for question-wise, branch-wise, and counter-wise aggregation powering the analytics dashboard'
+          ]
+        },
+        {
+          topic: 'SMS Alerts & Pipeline Coordination',
+          points: [
+            'Triggered SMS alerts through the kiosk/ticket pipeline when feedback is submitted; modified FeedbackService, TicketServiceImpl, and KioskBean to coordinate the flow'
+          ]
+        },
+        {
+          topic: 'MySQL Events & Materialized Summary Views',
+          points: [
+            'Created and fixed CREATE EVENT evt_report_insert to periodically refresh f_mv_feedback_summary_report, f_mv_feedback_detail_report, and f_mv_feedback_sms_report tables',
+            'Debugged a GROUP BY query issue causing the scheduled event to fail in strict SQL mode'
+          ]
+        },
+        {
+          topic: 'Email Template & Notification Workflow',
+          points: [
+            'Added email template integration for post-feedback kiosk notifications'
+          ]
+        },
+        {
+          topic: 'Core Technical Solutions (Backend)',
+          points: [
+            'Spring Data JPA + @Query: Wrote custom JPQL and native SQL queries for aggregated dashboard stats (branch/counter/region filtering)',
+            'MySQL Events: Used MySQL scheduler events to simulate materialized views; fixed a GROUP BY mode incompatibility bug so the event runs correctly in strict SQL mode',
+            'Spring Security + JWT: Worked within the existing JWT filter chain; applied role-based access guards on feedback endpoints',
+            'Lombok: Reduced boilerplate on all DTO and entity classes'
+          ]
+        }
       ],
-      architecture: [
-        'Microservice ingestion architecture designed for zero-latency response recording.',
-        'Kafka topic architecture isolating feedback ingest, aggregation, and notification streams.',
-        'Asynchronous alert pipeline delivering multi-channel manager alerts within 3 seconds of negative feedback.'
-      ],
-      infrastructure: [
-        'Deployed on Red Hat Enterprise Linux (RHEL) with Tomcat application server.',
-        'Nginx load balancer distributing kiosk API traffic.',
-        'Automated nightly analytical aggregation jobs computing daily CSAT and NPS metrics per location.'
-      ],
-      security: [
-        'Kiosk lock-down mode preventing unauthorized browser access.',
-        'Rate-limiting & IP throttling to prevent spam submissions on public QR surveys.',
-        'Encrypted data transmission over TLS 1.3 with full GDPR-compliant data anonymization.'
+      frontend: [
+        {
+          topic: 'Feedback Dashboard & Operational Analytics',
+          points: [
+            'Built stat tiles (total, today, mobile count), date-range filters, branch/counter/region hierarchy dropdowns, and an all-feedbacks table with a drill-down details modal',
+            'Used MUI Datatable (server-side sort/pagination), Axios, Moment.js for date formatting, and MUI v5 components'
+          ]
+        },
+        {
+          topic: 'Token Feedback View (1,341-Line Commit)',
+          points: [
+            'Built TokenFeedbacks.js (1,341-line commit) linking feedback entries directly with queue tokens'
+          ]
+        },
+        {
+          topic: 'All Feedbacks Table & Server-side Sorting Bugfix',
+          points: [
+            'Implemented server-side sorted MUI Datatable; fixed a bug where an empty sort column crashed the backend query by enforcing givenDate DESC as safe default on the frontend'
+          ]
+        },
+        {
+          topic: 'Feedback Summary Report & SMS Reports',
+          points: [
+            'Built FeedbackReports.js, FeedbackSmsReports.js, and FeedbackSmsReport.js table with Excel download button; added new columns to the summary report'
+          ]
+        },
+        {
+          topic: 'MQTT Real-time Push Integration',
+          points: [
+            'Wired mqttService.js into dashboard components; subscribed to feedback/dashboard/branch topic for live push updates',
+            'Managed connect/subscribe/unsubscribe/disconnect in component lifecycle to prevent memory leaks (used mqtt.js / paho-mqtt — solved real-time data refresh without polling)'
+          ]
+        },
+        {
+          topic: 'ApexCharts Trend Analytics',
+          points: [
+            'Rendered line charts and donut charts for feedback trend data wired to date-filtered Axios responses'
+          ]
+        },
+        {
+          topic: 'Branch & Counter Mapping Modals',
+          points: [
+            'Built AddBranchModal.js and AddKioskModal.js to link feedback branches/counters to queue system entities'
+          ]
+        },
+        {
+          topic: 'SMS Groups & Mobile Assignment Refactor',
+          points: [
+            'Implemented email assignment to SMS groups and mobile group assignment to kiosk (large SmsGroup.js refactor)'
+          ]
+        },
+        {
+          topic: 'Kiosk Design Fixes',
+          points: [
+            'Fixed feedback value mapping bug in DesignKiosksTemplate.js; enabled question zone editing'
+          ]
+        },
+        {
+          topic: 'CI/CD Bitbucket Pipeline',
+          points: [
+            'Configured Bitbucket Pipeline (SFTP deploy + Slack notify on build & deployment success)'
+          ]
+        },
+        {
+          topic: 'Core Technical Solutions (Frontend)',
+          points: [
+            'Redux + Thunk: Managed async API state (loading/success/error) across dashboard and report pages',
+            'React Router DOM v6: Added new routes for TokenFeedbacks, SMS Reports, and dashboard pages',
+            'MUI Datatables: Solved large dataset display with server-side pagination and custom column sorting',
+            'MQTT (mqtt.js): Solved real-time dashboard refresh without polling by subscribing to live topic feeds',
+            'ApexCharts: Visualized time-series feedback trends and category breakdowns for analytics',
+            'Axios: Handled all API calls with date-range and filter params',
+            'Bitbucket Pipelines: Automated deployment pipeline with manual approval gate and Slack notification hooks'
+          ]
+        }
       ]
     },
     product: {
       tagline: 'Capture customer feedback at the point of experience and turn insights into instant action.',
-      whatIsIt: 'An enterprise customer feedback application that collects real-time ratings via physical touch kiosks, QR codes, and web links. It converts raw responses into actionable Net Promoter Scores (NPS), Customer Satisfaction (CSAT) scores, and instant manager alerts.',
-      whoUsesIt: [
-        'Quality Managers & CX Officers — design surveys, set feedback targets, and analyze trends.',
-        'Branch / Store Managers — receive instant notifications of unsatisfied customers to resolve issues immediately.',
-        'Customers — quickly express their satisfaction in seconds via intuitive smiley faces or mobile forms.'
-      ],
-      features: [
-        { title: 'Instant Kiosk Smiley & Star Ratings', desc: 'Simplified 5-second survey interfaces ensuring maximum customer response completion rates.' },
-        { title: 'Dynamic QR Code Surveys', desc: 'Generate unique QR codes for receipts, tables, or invoices for instant mobile feedback.' },
-        { title: 'Real-time Incident Alerting', desc: 'Instantly escalates poor scores to area managers via SMS or email for immediate recovery.' },
-        { title: 'Branch Comparison & Benchmarking', desc: 'Compare CSAT and NPS scores across multiple store locations or service departments.' },
-        { title: 'AI-assisted Sentiment Categorization', desc: 'Groups open-ended text feedback into key themes like Cleanliness, Staff Courtesy, or Speed.' }
-      ],
-      whyUseful: 'Enables management to catch negative customer experiences before they hit social media and provides quantifiable metrics to continuously improve service quality.'
-    }
-  },
-  {
-    id: 'appointment-booking',
-    title: 'Appointment Booking Platform',
-    category: 'commercial',
-    status: 'Commercial System',
-    thumbnail: '/logo.svg',
-    subtitle: 'Enterprise Service & Healthcare Booking Solution',
-    tags: ['Spring Boot', 'React', 'PostgreSQL', 'Redis', 'Stripe API', 'iCal'],
-    description: 'Multi-branch appointment scheduling platform featuring intelligent slot availability logic, staff roster integration, automated deposit payments, and calendar syncing.',
-    accessInfo: 'Commercial deployment protected by NDA. Technical overview detailed below.',
-    technical: {
-      overview: 'High-reliability appointment platform built with strict concurrency controls to eliminate double bookings across complex multi-staff and multi-resource schedules.',
-      backendItems: [
-        { title: 'Spring Boot REST Framework', desc: 'Core service engine managing complex resource constraints, buffer times, and recurring slots.' },
-        { title: 'Redis Distributed Locking', desc: 'Concurrency-safe slot reservation lock preventing concurrent bookings during payment checkouts.' },
-        { title: 'Spring Data JPA & PostgreSQL', desc: 'Spatial and temporal index optimization for fast schedule availability queries.' },
-        { title: 'Stripe & Payment Gateway SDKs', desc: 'Integrated payment processing supporting full pre-payment, deposits, and automated refunds.' }
-      ],
-      frontendItems: [
-        { title: 'React & FullCalendar Integration', desc: 'Interactive drag-and-drop calendar view for staff and intuitive slot picker for clients.' },
-        { title: 'Responsive Booking Widget', desc: 'Embeddable white-label booking widget customizable for external client websites.' },
-        { title: 'Customer Self-Service Portal', desc: 'Allows clients to view, reschedule, or cancel bookings within business policy constraints.' }
-      ],
-      architecture: [
-        'Slot calculation engine dynamically evaluating staff shift, room availability, and equipment lockouts.',
-        'Transactional lock strategy guaranteeing atomic slot reservations during checkout window.',
-        'Webhooks integration for real-time Stripe payment status updates and instant calendar sync.'
-      ],
-      infrastructure: [
-        'Dockerized container deployment managed via Kubernetes cluster.',
-        'PostgreSQL database with read-replicas for fast slot lookup queries.',
-        'Prometheus alerts for payment gateway latency and slot lock timeouts.'
-      ],
-      security: [
-        'OAuth2 & JWT authentication for customer and admin access.',
-        'PCI-DSS compliant payment processing via direct tokenization.',
-        'AES-256 encrypted customer PII and appointment medical/service notes storage.'
-      ]
-    },
-    product: {
-      tagline: 'Seamless 24/7 online booking with automated payments, roster syncing, and zero double-bookings.',
-      whatIsIt: 'An enterprise scheduling solution built for multi-location service businesses, medical clinics, and wellness centers. It automates client scheduling, staff assignments, deposit collection, and appointment reminders.',
-      whoUsesIt: [
-        'Business Owners & Receptionists — manage master schedules, assign staff rosters, and track revenues.',
-        'Staff / Service Providers — view personal daily calendars and set custom availability.',
-        'Clients — book appointments anytime from mobile or desktop with instant confirmation.'
-      ],
-      features: [
-        { title: 'Smart Time-Slot Availability Engine', desc: 'Calculates open slots in real time based on staff working hours, breaks, and equipment constraints.' },
-        { title: 'Automated Deposits & Payment Hold', desc: 'Requires upfront payment or deposit to lock in appointments, drastically reducing no-shows.' },
-        { title: 'Automated SMS & Email Reminders', desc: 'Sends timed reminders 24h/2h prior to appointments with 1-click confirmation links.' },
-        { title: 'Multi-Branch & Staff Roster Management', desc: 'Handles multi-location operations with distinct pricing, staff permissions, and timezones.' },
-        { title: 'Two-Way Google & Outlook Calendar Sync', desc: 'Syncs booked appointments directly to personal or company calendars in real time.' }
-      ],
-      whyUseful: 'Eliminates phone-based booking friction, operates 24/7, reduces no-shows by up to 60% through pre-payments, and keeps daily operations organized.'
+      impact: 'Highest contributor — 14 of ~33 commits across the frontend (yasinthav commits). Full ownership of feedback-specific dashboard, API, and reporting features.'
     }
   },
   {
@@ -331,6 +393,8 @@ const PROJECTS_DATA = [
     description: 'Computer-vision & IoT powered occupancy monitoring solution providing real-time footfall counting, camera device stream processing, sales conversion dashboards, and campaign analytics.',
     accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
     techStackTables: {
+      backendTitle: 'Backend',
+      frontendTitle: 'Frontend',
       backend: [
         { area: 'Language', technology: 'Java' },
         { area: 'Framework', technology: 'Spring Boot 2.x (Modular Maven)' },
@@ -430,14 +494,132 @@ const PROJECTS_DATA = [
   },
   {
     id: 'gateway-provider',
-    title: 'service-gateway (provider)',
+    title: 'Service Gateway',
     category: 'personal',
     status: 'Active',
     thumbnail: '/service-gateway-provider.png',
     link: 'https://vihangagunathilake.com/service-gateway',
-    tags: ['Spring Boot', 'React', 'MySQL', 'Kafka'],
-    description: 'Book a service. Watch it run itself.',
-    longDescription: ''
+    subtitle: 'Full-Stack Service Management & Intelligent Job Scheduling Platform',
+    tags: ['Java 21', 'Spring Boot 3.5', 'React 19', 'Kafka', 'WebSocket', 'STOMP', 'PWA', 'MySQL'],
+    description: 'A full-stack service management platform that digitizes and automates how service businesses manage customer jobs, agents, scheduling, and real-time operations.',
+    accessInfo: 'Full-stack service platform featuring a custom greedy time-slot optimization scheduling algorithm and Kafka event-driven alerts.',
+    techStackTables: {
+      backendTitle: 'Backend',
+      frontendTitle: 'Frontend',
+      backend: [
+        { area: 'Backend Language', technology: 'Java 21' },
+        { area: 'Backend Framework', technology: 'Spring Boot 3.5' },
+        { area: 'Security', technology: 'Spring Security + JWT (JJWT)' },
+        { area: 'Database', technology: 'MySQL + Spring Data JPA (Hibernate)' },
+        { area: 'Messaging / Events', technology: 'Apache Kafka' },
+        { area: 'Real-time Push', technology: 'WebSocket (STOMP via SimpMessagingTemplate)' },
+        { area: 'Email', technology: 'Spring Mail + Thymeleaf (HTML templates)' },
+        { area: 'Scheduling', technology: 'Spring @Scheduled tasks' },
+        { area: 'In-Memory Cache', technology: 'Spring Cache (ConcurrentMapCache)' },
+        { area: 'Architecture', technology: 'Multi-module Maven monorepo' }
+      ],
+      frontend: [
+        { area: 'Framework', technology: 'React 19' },
+        { area: 'UI Libraries', technology: 'Material UI (MUI), Ant Design, Lucide Icons' },
+        { area: 'Routing', technology: 'React Router v7' },
+        { area: 'HTTP Client', technology: 'Axios' },
+        { area: 'WebSocket Client', technology: 'STOMP.js + SockJS' },
+        { area: 'PWA', technology: 'Service Worker (offline support + install prompt)' },
+        { area: 'Utilities', technology: 'Lombok, Apache Commons, Moment.js' },
+        { area: 'Build Tool', technology: 'Maven (backend), Create React App (frontend)' }
+      ]
+    },
+    involvementSection: {
+      title: 'How Each Technology Solves a Problem',
+      backend: [
+        {
+          topic: 'Java 21 + Spring Boot 3.5 — Modular Monolith Architecture',
+          points: [
+            'Multi-module monorepo design (user_module, job_module, service_module, notification_module, dashboard_module, common_module, web_module) keeping each business domain isolated and maintainable',
+            'Exposed REST APIs consumed by the React 19 single page application'
+          ]
+        },
+        {
+          topic: 'Spring Security + JWT — Method-Level Security & RBAC',
+          points: [
+            'Custom JwtAuthenticationFilter validating tokens on every API request',
+            'Method-level security (@EnableMethodSecurity) enforcing role-based access control (RBAC) at the service layer',
+            'CustomAccessDeniedHandler returning clean JSON error payloads'
+          ]
+        },
+        {
+          topic: 'Spring Data JPA + MySQL — Efficient Data Queries & Projections',
+          points: [
+            'Mapped domain entities (Job, JobAtPoint, ServicePoint, User, Customer)',
+            'Custom JPQL and native queries (getCompressedJobsByPoint, getAvailableServicesIds) powering the scheduling engine',
+            'JPA projection interfaces (ServiceTimeProjection, JobTimelineProjection) preventing database over-fetching'
+          ]
+        },
+        {
+          topic: 'Custom Job Scheduling Algorithm — Greedy Time-Slot Optimization',
+          points: [
+            'Designed and built a greedy time-slot optimization algorithm in PrepareJobSubMethods from scratch',
+            'Loops through requested services and available service points to find the earliest free time slot without overlaps',
+            'Detects gaps between scheduled jobs and fills them intelligently to minimize customer wait times'
+          ]
+        },
+        {
+          topic: 'Apache Kafka — Event-Driven Decoupling',
+          points: [
+            'Decoupled job events (job timeouts, customer arrivals) from the alert pipeline',
+            'Published CustomerArrivedTrigger and TimeoutJobListener events for independent consumer processing'
+          ]
+        },
+        {
+          topic: 'WebSocket (STOMP + SimpMessagingTemplate) — Live Push Telemetry',
+          points: [
+            'Delivered real-time notifications to specific users via WebSocket topic /topic/notifications/{userId}',
+            'Auto-refreshed manager and agent dashboards on live job-serving events'
+          ]
+        },
+        {
+          topic: 'Spring @Scheduled Tasks & Spring Cache',
+          points: [
+            'JobTimeoutScheduler marking overdue jobs and DeleteExpiredJobsScheduler purging stale data',
+            'Cached role permissions in-memory via ConcurrentMapCacheManager to minimize DB overhead on API calls'
+          ]
+        },
+        {
+          topic: 'Spring Mail + Thymeleaf',
+          points: [
+            'Rendered responsive HTML email templates via Thymeleaf for automated account notifications'
+          ]
+        }
+      ],
+      frontend: [
+        {
+          topic: 'React 19 + React Router v7 — Role-Aware SPA Routing',
+          points: [
+            'Single Page Application with protected routes (ProtectedRoute)',
+            'Role-aware routing redirecting agents to /my-jobs and managers to /dashboard',
+            'Global UI state management using React Context API (ThemeContext, CurrencyContext)'
+          ]
+        },
+        {
+          topic: 'MUI + Ant Design + Lucide Icons — Component System',
+          points: [
+            'MUI Skeleton loaders, Tooltips, and DataGrid layout structures',
+            'Ant Design time pickers and form controls combined with lightweight Lucide SVG icons'
+          ]
+        },
+        {
+          topic: 'WebSocket Client & Progressive Web App (PWA)',
+          points: [
+            'STOMP.js + SockJS client integration for reliable real-time push subscriptions',
+            'Service Worker caching app shell for offline resilience with native home screen install prompt'
+          ]
+        }
+      ]
+    },
+    product: {
+      tagline: 'Book a service. Watch it run itself.',
+      impact: 'Full-Stack Creator & Lead Architect — Custom Greedy Job Scheduling Engine, Kafka Telemetry Bus & PWA.'
+    }
   },
   {
     id: 'gateway-seeker',

@@ -104,7 +104,7 @@ function ProjectDetails({ project, onBack }) {
             </a>
             <span style={{ color: 'var(--border-color)' }}>|</span>
             <a href="#my-involvement" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600 }}>
-              <span style={{ color: 'var(--accent-purple)' }}>2.</span> My Involvement
+              <span style={{ color: 'var(--accent-purple)' }}>2.</span> {involvementSection?.title || 'My Involvement'}
             </a>
           </div>
         </div>
@@ -134,8 +134,14 @@ function ProjectDetails({ project, onBack }) {
                   </svg>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-cyan)' }}>Backend (ts-queue)</h3>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>Core Spring Boot modular monolith framework</p>
+                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-cyan)' }}>
+                    {techStackTables?.backendTitle || 'Backend'}
+                  </h3>
+                  {techStackTables?.backendSubtitle && (
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
+                      {techStackTables.backendSubtitle}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -177,8 +183,14 @@ function ProjectDetails({ project, onBack }) {
                   </svg>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-purple)' }}>Frontend (ts-queue-portal)</h3>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>React 18 SPA with real-time MQTT telemetry</p>
+                  <h3 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--accent-purple)' }}>
+                    {techStackTables?.frontendTitle || 'Frontend'}
+                  </h3>
+                  {techStackTables?.frontendSubtitle && (
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
+                      {techStackTables.frontendSubtitle}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -213,7 +225,7 @@ function ProjectDetails({ project, onBack }) {
           <div id="my-involvement" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
             <div style={{ borderBottom: '2px solid var(--border-color)', paddingBottom: '0.75rem' }}>
               <h2 style={{ fontSize: '2.25rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <span style={{ color: 'var(--accent-purple)' }}>2.</span> My Involvement
+                <span style={{ color: 'var(--accent-purple)' }}>2.</span> {involvementSection?.title || 'My Involvement'}
               </h2>
             </div>
 
@@ -246,8 +258,8 @@ function ProjectDetails({ project, onBack }) {
                       <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
                         {item.points.map((pt, pIdx) => (
                           <li key={pIdx}>
-                            {pt.split(/(@NamedQuery|@NamedNativeQuery|JpaRepository|api\/impl|SP_TRANSFER_USER|rp_agent_wise_table|rp_agent_attendance_table|FootfallDevice|DailyPersonAttribute|DetectedPerson|MatchedDetectedPerson|CubeQueryRequest|V9\/PCS\/CubeQuery)/g).map((chunk, cIdx) => (
-                              ['@NamedQuery', '@NamedNativeQuery', 'JpaRepository', 'api/impl', 'SP_TRANSFER_USER', 'rp_agent_wise_table', 'rp_agent_attendance_table', 'FootfallDevice', 'DailyPersonAttribute', 'DetectedPerson', 'MatchedDetectedPerson', 'CubeQueryRequest', 'V9/PCS/CubeQuery'].includes(chunk) ? (
+                            {pt.split(/(@NamedQuery|@NamedNativeQuery|JpaRepository|api\/impl|SP_TRANSFER_USER|rp_agent_wise_table|rp_agent_attendance_table|FootfallDevice|DailyPersonAttribute|DetectedPerson|MatchedDetectedPerson|CubeQueryRequest|V9\/PCS\/CubeQuery|FeedbackController|FeedbackService|TicketServiceImpl|KioskBean|evt_report_insert|f_mv_feedback_summary_report|f_mv_feedback_detail_report|f_mv_feedback_sms_report|GROUP BY|@Query|Lombok|JwtAuthenticationFilter|@EnableMethodSecurity|CustomAccessDeniedHandler|JobAtPoint|ServicePoint|getCompressedJobsByPoint|getAvailableServicesIds|ServiceTimeProjection|JobTimelineProjection|PrepareJobSubMethods|CustomerArrivedTrigger|TimeoutJobListener|SimpMessagingTemplate|\/topic\/notifications\/\{userId\}|JobTimeoutScheduler|DeleteExpiredJobsScheduler|ConcurrentMapCacheManager|Java 21|Spring Boot 3\.5)/g).map((chunk, cIdx) => (
+                              ['@NamedQuery', '@NamedNativeQuery', 'JpaRepository', 'api/impl', 'SP_TRANSFER_USER', 'rp_agent_wise_table', 'rp_agent_attendance_table', 'FootfallDevice', 'DailyPersonAttribute', 'DetectedPerson', 'MatchedDetectedPerson', 'CubeQueryRequest', 'V9/PCS/CubeQuery', 'FeedbackController', 'FeedbackService', 'TicketServiceImpl', 'KioskBean', 'evt_report_insert', 'f_mv_feedback_summary_report', 'f_mv_feedback_detail_report', 'f_mv_feedback_sms_report', 'GROUP BY', '@Query', 'Lombok', 'JwtAuthenticationFilter', '@EnableMethodSecurity', 'CustomAccessDeniedHandler', 'JobAtPoint', 'ServicePoint', 'getCompressedJobsByPoint', 'getAvailableServicesIds', 'ServiceTimeProjection', 'JobTimelineProjection', 'PrepareJobSubMethods', 'CustomerArrivedTrigger', 'TimeoutJobListener', 'SimpMessagingTemplate', '/topic/notifications/{userId}', 'JobTimeoutScheduler', 'DeleteExpiredJobsScheduler', 'ConcurrentMapCacheManager', 'Java 21', 'Spring Boot 3.5'].includes(chunk) ? (
                                 <code key={cIdx} style={{ background: 'rgba(6, 182, 212, 0.15)', color: 'var(--accent-cyan)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.9rem', fontFamily: 'monospace' }}>
                                   {chunk}
                                 </code>
@@ -291,8 +303,8 @@ function ProjectDetails({ project, onBack }) {
                       <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
                         {item.points.map((pt, pIdx) => (
                           <li key={pIdx}>
-                            {pt.split(/(Redux Thunk|paho-mqtt|MUI Datatables|React-Konva|React Router DOM v6|Firebase Hosting|PrimeReact|ApexCharts|Chart\.js)/g).map((chunk, cIdx) => (
-                              ['Redux Thunk', 'paho-mqtt', 'MUI Datatables', 'React-Konva', 'React Router DOM v6', 'Firebase Hosting', 'PrimeReact', 'ApexCharts', 'Chart.js'].includes(chunk) ? (
+                            {pt.split(/(Redux Thunk|paho-mqtt|MUI Datatables|React-Konva|React Router DOM v6|Firebase Hosting|PrimeReact|ApexCharts|Chart\.js|FeedbackDashboard\.js|FeedbackPerformanceDashboard\.js|TokenFeedbacks\.js|AllFeedbacks\.js|mqttService\.js|DesignKiosksTemplate\.js|AddBranchModal\.js|AddKioskModal\.js|givenDate DESC|connectMQTT|subscribeTopic|unsubscribeTopic|disconnectMQTT|Moment\.js|FeedbackReports\.js|FeedbackSmsReports\.js|FeedbackSmsReport\.js|SmsGroup\.js|mqtt\.js|Redux \+ Thunk|MQTT \(mqtt\.js\)|Bitbucket Pipelines|React 19|React Router v7|ProtectedRoute|\/my-jobs|\/dashboard|ThemeContext|CurrencyContext|STOMP\.js|SockJS|Service Worker)/g).map((chunk, cIdx) => (
+                              ['Redux Thunk', 'paho-mqtt', 'MUI Datatables', 'React-Konva', 'React Router DOM v6', 'Firebase Hosting', 'PrimeReact', 'ApexCharts', 'Chart.js', 'FeedbackDashboard.js', 'FeedbackPerformanceDashboard.js', 'TokenFeedbacks.js', 'AllFeedbacks.js', 'mqttService.js', 'DesignKiosksTemplate.js', 'AddBranchModal.js', 'AddKioskModal.js', 'givenDate DESC', 'connectMQTT', 'subscribeTopic', 'unsubscribeTopic', 'disconnectMQTT', 'Moment.js', 'FeedbackReports.js', 'FeedbackSmsReports.js', 'FeedbackSmsReport.js', 'SmsGroup.js', 'mqtt.js', 'Redux + Thunk', 'MQTT (mqtt.js)', 'Bitbucket Pipelines', 'React 19', 'React Router v7', 'ProtectedRoute', '/my-jobs', '/dashboard', 'ThemeContext', 'CurrencyContext', 'STOMP.js', 'SockJS', 'Service Worker'].includes(chunk) ? (
                                 <code key={cIdx} style={{ background: 'rgba(168, 85, 247, 0.15)', color: 'var(--accent-purple)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.9rem', fontFamily: 'monospace' }}>
                                   {chunk}
                                 </code>
