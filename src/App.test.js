@@ -6,8 +6,8 @@ test('renders portfolio and commercial projects', () => {
   const headingElement = screen.getByText(/Featured Projects/i);
   expect(headingElement).toBeInTheDocument();
   
-  expect(screen.getByText(/Queue Management System/i)).toBeInTheDocument();
-  expect(screen.getByText(/Feedback Application/i)).toBeInTheDocument();
+  expect(screen.getByText('Enterprise Queue Management Platform')).toBeInTheDocument();
+  expect(screen.getByText('Feedback Solution — Customer Feedback & Analytics Platform')).toBeInTheDocument();
   expect(screen.getByText(/People Counting Solution/i)).toBeInTheDocument();
 });
 

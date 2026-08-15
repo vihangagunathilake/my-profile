@@ -1,51 +1,90 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import About from './components/About';
+import EngineeringSummary from './components/EngineeringSummary';
+import Experience from './components/Experience';
 import Skills from './components/Skills';
+import Timeline from './components/Timeline';
+import Education from './components/Education';
+import Contact from './components/Contact';
 import ProjectCard from './components/ProjectCard';
 import ProjectDetails from './components/ProjectDetails';
 
 const PROJECTS_DATA = [
   {
     id: 'queue-management-system',
-    title: 'Queue Management System',
+    title: 'Enterprise Queue Management Platform',
     category: 'commercial',
     status: 'Commercial System',
     thumbnail: '/logo.svg',
-    subtitle: 'Enterprise Multi-Branch Queue Management & Branch Experience Platform',
-    tags: ['Java', 'Spring Boot', 'React', 'MQTT', 'MySQL', 'Redux', 'JobRunr', 'ApexCharts', 'Caffeine'],
-    description: 'Enterprise-grade, multi-branch Queue Management and Branch Experience Platform used by banks, service centers, and government organizations. Owned & built the real-time Branch Dashboard end-to-end over ~4 years.',
+    link: 'https://tstpl.com/queue-management-solution/',
+    subtitle: 'Full-Stack Software Engineer / Backend Architect',
+    tags: [
+      'Modular Architecture',
+      'Real-Time MQTT',
+      'Queue Routing Engine',
+      'Async Processing',
+      'Enterprise Security',
+      'Analytics & Reporting',
+      'React Dashboard',
+      'CI/CD'
+    ],
+    details: {
+      subtitle: 'Full-Stack Software Engineer / Backend Architect',
+      description: [
+        'TS Queue is a multi-branch enterprise queue management platform that manages ticketing, queue routing, agent/service-point operations, notifications, feedback, analytics, and reporting.'
+      ],
+      keyHighlights: [
+        'Modular Architecture',
+        'Real-Time MQTT',
+        'Queue Routing Engine',
+        'Async Processing',
+        'Enterprise Security',
+        'Analytics & Reporting',
+        'React Dashboard',
+        'CI/CD'
+      ],
+      highlights: [
+        'Designed and developed the **modular Spring Boot backend** with domain-focused Maven modules.',
+        'Built the **core queue routing engine** supporting FIFO, agent-based, and skill-based assignment.',
+        'Designed the **real-time MQTT communication layer** for operators, kiosks, displays, and dashboards.',
+        'Implemented **asynchronous background processing** using JobRunr for queue operations and messaging.',
+        'Developed **JWT authentication, role/permission authorization, and Active Directory/LDAP integration**.',
+        'Built **AOP-based audit logging** for enterprise operation tracking.',
+        'Developed **SMS and in-app notification systems** with event-driven workflows.',
+        'Implemented **reporting and analytics**, including complex SQL views, materialized views, and Excel/PDF exports.',
+        'Contributed to the **React management portal**, including real-time dashboards, analytics, reporting, and administration modules.',
+        'Implemented **CI/CD deployment automation** using Bitbucket Pipelines and Apache Tomcat.'
+      ],
+      technology: [
+        'Java', 'Spring Boot', 'Spring Security', 'JPA/Hibernate', 'Spring AOP', 'JWT', 'LDAP/Active Directory',
+        'React 18', 'Redux', 'Axios', 'Material UI', 'ApexCharts', 'Konva',
+        'MySQL', 'SQL Views', 'MQTT', 'Eclipse Paho', 'JobRunr',
+        'Maven', 'Docker', 'Apache Tomcat', 'Bitbucket Pipelines'
+      ]
+    },
+    description: 'TS Queue is a multi-branch enterprise queue management platform that manages ticketing, queue routing, agent/service-point operations, notifications, feedback, analytics, and reporting.',
     accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
     techStackTables: {
       backendTitle: 'Backend',
       frontendTitle: 'Frontend',
       backend: [
         { area: 'Language', technology: 'Java' },
-        { area: 'Framework', technology: 'Spring Boot 2.x (Modular Maven project)' },
-        { area: 'ORM / Persistence', technology: 'Spring Data JPA, Hibernate, MySQL' },
+        { area: 'Framework', technology: 'Spring Boot (Modular Maven project), Spring AOP' },
+        { area: 'ORM / Persistence', technology: 'JPA / Hibernate, MySQL, SQL Views' },
         { area: 'Security', technology: 'Spring Security, JWT, LDAP / Active Directory' },
-        { area: 'Real-time Messaging', technology: 'MQTT (ActiveMQ)' },
-        { area: 'Caching', technology: 'Caffeine Cache' },
+        { area: 'Real-time Messaging', technology: 'MQTT (Eclipse Paho)' },
         { area: 'Background Jobs', technology: 'JobRunr' },
-        { area: 'Reporting', technology: 'Apache POI (Excel), JasperReports (PDF / JRXML)' },
-        { area: 'Monitoring', technology: 'JavaMelody' },
-        { area: 'Notifications', technology: 'SMTP Email, SMS Gateway' },
-        { area: 'Build and Deploy', technology: 'Maven, Bitbucket Pipelines (CI/CD)' }
+        { area: 'Build and Deploy', technology: 'Maven, Docker, Apache Tomcat, Bitbucket Pipelines' }
       ],
       frontend: [
-        { area: 'Framework', technology: 'React 18 (Create React App)' },
-        { area: 'State Management', technology: 'Redux + Redux Thunk' },
-        { area: 'UI Library', technology: 'Material UI (MUI v5), React Bootstrap, Reactstrap' },
-        { area: 'Charts', technology: 'ApexCharts, Chart.js' },
-        { area: 'Real-time', technology: 'MQTT (paho-mqtt / mqtt.js)' },
-        { area: 'Data Tables', technology: 'MUI Datatables, React Data Table Component' },
-        { area: 'Canvas / Design', technology: 'Konva / React-Konva' },
-        { area: 'HTTP Client', technology: 'Axios' },
-        { area: 'Routing', technology: 'React Router DOM v6' },
-        { area: 'Styling', technology: 'SASS' },
-        { area: 'Notifications', technology: 'React Hot Toast, SweetAlert2' },
-        { area: 'Build and Deploy', technology: 'Webpack, Bitbucket Pipelines' }
+        { area: 'Framework', technology: 'React 18' },
+        { area: 'State Management', technology: 'Redux' },
+        { area: 'UI Library', technology: 'Material UI' },
+        { area: 'Charts', technology: 'ApexCharts' },
+        { area: 'Real-time', technology: 'MQTT (Eclipse Paho)' },
+        { area: 'Canvas / Design', technology: 'Konva' },
+        { area: 'HTTP Client', technology: 'Axios' }
       ]
     },
     involvementSection: {
@@ -53,443 +92,274 @@ const PROJECTS_DATA = [
         {
           topic: 'Spring Boot — Modular Monolith',
           points: [
-            'Built and maintained services across 11 Maven modules (branch_op, ticket_op, kiosk, reports, users, etc.) each isolated by business domain',
-            'Applied the api/impl pattern: facade interfaces in api, JPA logic in impl — keeping controllers decoupled from repositories'
+            'Built and maintained services across domain-focused Maven modules.',
+            'Applied modular monolith architecture to isolate business logic.'
           ]
         },
         {
-          topic: 'Spring Data JPA / Hibernate + MySQL',
+          topic: 'Queue Routing Engine',
           points: [
-            'Wrote custom @NamedQuery / @NamedNativeQuery on entity beans for complex reporting views',
-            'Extended JpaRepository interfaces for domain-specific queries across agents, counters, categories, kiosks, and tickets',
-            'Implemented branch cloning — persisting categories, counters, kiosk designs, and SMS templates via JPA in a single transactional flow'
+            'Designed and built the core assignment engine supporting FIFO, agent-based, and skill-based assignment.'
           ]
         },
         {
-          topic: 'Spring Security + JWT',
+          topic: 'MQTT Event Streaming',
           points: [
-            'Implemented role- and user-type-based API access control',
-            'Enforced permission-driven visibility backed by Spring Security context'
+            'Built the real-time MQTT communication layer for operators, kiosks, displays, and dashboards.'
           ]
         },
         {
-          topic: 'MQTT — Real-time Messaging',
+          topic: 'Enterprise Security',
           points: [
-            'Used MQTT pub/sub to broadcast live ticket state changes to kiosks and display boards — eliminating polling',
-            'Integrated MQTT for kiosk initialisation and appointment booking real-time flows'
-          ]
-        },
-        {
-          topic: 'Apache POI + JasperReports',
-          points: [
-            'Built the full agent-wise reporting suite: attendance, performance, matter code summary',
-            'Generated Excel exports via Apache POI and PDF reports via JRXML templates',
-            'Created MySQL event-driven aggregation tables (rp_agent_wise_table, rp_agent_attendance_table) powering these reports'
-          ]
-        },
-        {
-          topic: 'MySQL — Events / Views / Stored Procedures',
-          points: [
-            'Wrote complex SQL views, scheduled MySQL events for nightly data aggregation, and stored procedures (SP_TRANSFER_USER, agent performance summary)',
-            'Fixed multi-table join issues in reporting views and corrected ordering bugs in historical report queries'
-          ]
-        },
-        {
-          topic: 'CI/CD — Bitbucket Pipelines',
-          points: [
-            'Deployed backend as WAR through automated Bitbucket pipeline to Tomcat'
+            'Integrated Active Directory/LDAP single sign-on with Spring Security and JWT token authorization.'
           ]
         }
       ],
       frontend: [
         {
-          topic: 'React + Redux',
+          topic: 'React Dashboard & Management Portal',
           points: [
-            'Built the Branch Dashboard — real-time operational hub — with live stat tiles, charts, and drill-down modals (issued, waiting, serving, served, no-show, transferred, exception)',
-            'Managed complex async state with Redux + Redux Thunk for multi-branch data and live polling',
-            'Implemented AUX (break/away) status tracking and operator search in the live counter view'
-          ]
-        },
-        {
-          topic: 'ApexCharts / Chart.js',
-          points: [
-            'Rendered real-time donut/gauge charts for operator status and token-per-hour bar charts',
-            'Wired chart data to backend live data — refreshed on intervals and MQTT events',
-            'Added category service-time and wait-time statistics charts to the dashboard'
-          ]
-        },
-        {
-          topic: 'MQTT (paho-mqtt)',
-          points: [
-            'Subscribed to MQTT broker topics in React to receive live ticket/queue updates',
-            'Powered the real-time branch dashboard without any polling'
-          ]
-        },
-        {
-          topic: 'Material UI (MUI v5)',
-          points: [
-            'Built reusable MUI Datatables for agent-wise reports with column-level PDF/Excel export config',
-            'Used MUI components across dashboard modals, form controls, and management screens'
-          ]
-        },
-        {
-          topic: 'Konva / React-Konva',
-          points: [
-            'Implemented kiosk ticket design editing on a canvas with dimension validation',
-            'Added cloned kiosk design name editing capability'
-          ]
-        },
-        {
-          topic: 'Axios',
-          points: [
-            'Integrated all backend REST APIs — reports, branch management, user/skill assignment, kiosk management — with JWT token headers'
-          ]
-        },
-        {
-          topic: 'React Router DOM v6',
-          points: [
-            'Implemented role-based route visibility: hid admin/licensing/branch routes based on user type from backend'
-          ]
-        },
-        {
-          topic: 'SASS',
-          points: [
-            'Delivered UI/UX consistency across dashboard, reports, and admin screens through SASS-based theming and layout restructures'
+            'Contributed to real-time dashboards, analytical reporting, and admin modules using React 18, Redux, and Axios.'
           ]
         }
       ]
     },
     technical: {
-      overview: 'TS Queue is an enterprise-grade, multi-branch Queue Management and Branch Experience Platform used by banks, service centers, and government organizations to manage the complete customer journey — from ticket issuance and appointments to counter operations, kiosks, digital displays, notifications, feedback, CRM, and analytics. Built with Java, Spring Boot, Spring Data JPA/Hibernate, Spring Security, JWT, LDAP/Active Directory, MySQL, MQTT, JobRunr, Caffeine, Apache POI, and PDF reporting, the backend follows a modular monolith architecture with domain-focused modules for ticket operations, branch management, users, kiosks, bookings, CRM, alerts, reports, and digital displays. The React-based TS Queue Portal provides real-time branch dashboards and administration using React, Redux, MQTT, Axios, ApexCharts, Chart.js, and Konva, with live ticket and counter updates delivered through MQTT instead of polling.',
+      overview: 'TS Queue is a multi-branch enterprise queue management platform that manages ticketing, queue routing, agent/service-point operations, notifications, feedback, analytics, and reporting.',
       backendItems: [
-        { title: 'Java & Spring Boot Modular Monolith', desc: 'Domain-focused modules for ticket operations, branch management, users, kiosks, bookings, CRM, alerts, reports, and digital displays.' },
-        { title: 'MQTT Event Streaming Engine', desc: 'Real-time ticket calls, counter states, and display updates delivered instantly over MQTT instead of polling.' },
-        { title: 'Spring Security, JWT & LDAP / AD', desc: 'Enterprise authentication with Active Directory / LDAP single sign-on integration and role-based access control.' },
-        { title: 'JobRunr & Caffeine Caching', desc: 'Asynchronous background job execution, automated recurring tasks, and high-performance in-memory caching.' },
-        { title: 'Apache POI & PDF Reporting Engine', desc: 'Custom reporting engines for automated Excel and PDF analytics export.' }
+        { title: 'Spring Boot Modular Monolith', desc: 'Domain-focused Maven modules isolating business domains.' },
+        { title: 'Queue Routing Engine', desc: 'Core routing algorithm for FIFO and skill-prioritized assignments.' },
+        { title: 'Real-Time MQTT Streaming', desc: 'Instantaneous telemetry and token call updates.' }
       ],
       frontendItems: [
-        { title: 'React & Redux TS Queue Portal', desc: 'Real-time administration, branch performance monitoring, and counter operations interface.' },
-        { title: 'MQTT Web Client & Axios', desc: 'Event-driven live state synchronization for instantaneous ticket call and counter status updates.' },
-        { title: 'ApexCharts, Chart.js & Konva', desc: 'Interactive real-time branch analytics, service-level metric charts, and floorplan layout canvas rendering.' }
-      ],
-      architecture: [
-        'Modular Monolith Architecture — Domain-focused modules isolating tickets, branches, users, kiosks, CRM, alerts, and reports.',
-        'Event-Driven MQTT Telemetry — Real-time push updates for ticket dispatching and counter monitoring without HTTP polling.',
-        'Role-Based & LDAP/AD Security — Enterprise SSO with granular skill-based permissions and user controls.',
-        'High-Throughput Analytics & Background Processing — Caffeine caching and JobRunr async workers.'
-      ],
-      infrastructure: [
-        'Deployed across multi-branch enterprise environments for banks, telecom service centers, and government institutions.',
-        'Nginx reverse proxy for static asset delivery and WebSockets / MQTT transport proxying.',
-        'MySQL relational database with Liquibase schema management and query optimization.'
-      ],
-      security: [
-        'Enterprise LDAP / Active Directory Integration for corporate Single Sign-On (SSO).',
-        'JWT Stateless Authentication with granular role-based and skill-based authorization rules.'
+        { title: 'React 18 Portal', desc: 'Real-time operator dashboards and admin screens.' }
       ]
     },
     product: {
-      tagline: 'Enterprise-grade multi-branch Queue Management and Branch Experience Platform for Banks, Service Centers & Government.',
-      whatIsIt: 'TS Queue is an enterprise-grade, multi-branch Queue Management and Branch Experience Platform used by banks, service centers, and government organizations to manage the complete customer journey — from ticket issuance and appointments to counter operations, kiosks, digital displays, notifications, feedback, CRM, and analytics. Built with Java, Spring Boot, Spring Data JPA/Hibernate, Spring Security, JWT, LDAP/Active Directory, MySQL, MQTT, JobRunr, Caffeine, Apache POI, and PDF reporting, the backend follows a modular monolith architecture with domain-focused modules for ticket operations, branch management, users, kiosks, bookings, CRM, alerts, reports, and digital displays. The React-based TS Queue Portal provides real-time branch dashboards and administration using React, Redux, MQTT, Axios, ApexCharts, Chart.js, and Konva, with live ticket and counter updates delivered through MQTT instead of polling.',
-      impact: 'Primary owner of the platform\'s real-time branch operations and dashboard experience, with 790 backend commits across the platform and 189 frontend commits, including 87 backend commits on the core real-time dashboard services and 69 frontend commits on the main Branch Dashboard over ~4 years.',
-      whoUsesIt: [
-        'Banks & Financial Institutions — manage high-volume customer branch traffic, teller counters, and service SLAs.',
-        'Government Organizations — streamline citizen appointment scheduling and walk-in ticket operations.',
-        'Service Centers & Telecom Stores — balance staff counter loads, track AUX idle time, and measure service performance.'
-      ],
-      features: [
-        { title: 'Real-Time Branch Dashboard', desc: 'End-to-end live monitoring for tickets, counters, operators, service-level metrics, and staff occupancy.' },
-        { title: 'Advanced Queue & Skill Routing', desc: 'AUX status tracking, FIFO/no-skill ticket handling, counter-category pinning, and skill-prioritized ticket routing.' },
-        { title: 'Automated Branch Cloning & Onboarding', desc: 'One-click branch cloning for categories, kiosks, counters, and SMS templates to streamline multi-branch rollout.' },
-        { title: 'Comprehensive Analytics & Excel/PDF Reporting', desc: 'Agent attendance, performance, token-wise, customer, and queue analytics with iText PDF & Apache POI Excel export.' },
-        { title: 'Kiosk & Main Display Management', desc: 'Ticket design validation, cloned kiosk configuration, and MQTT-driven digital signage displays.' }
-      ],
-      whyUseful: 'Reduces waiting times, eliminates counter bottlenecks, automates multi-branch deployment, and empowers management with real-time operational visibility and SLA analytics.'
+      tagline: 'Enterprise-grade multi-branch Queue Management and Branch Experience Platform.',
+      whatIsIt: 'TS Queue is a multi-branch enterprise queue management platform that manages ticketing, queue routing, agent/service-point operations, notifications, feedback, analytics, and reporting.'
     }
   },
   {
     id: 'feedback-application',
-    title: 'Feedback Application',
+    title: 'Feedback Solution — Customer Feedback & Analytics Platform',
     category: 'commercial',
     status: 'Commercial System',
     thumbnail: '/logo.svg',
-    subtitle: 'Customer Experience & Quality Assurance Platform',
-    tags: ['Java', 'Spring Boot 2.x', 'React 18', 'Redux', 'MUI v5', 'MQTT', 'MySQL Events', 'Apache POI', 'Bitbucket Pipelines'],
-    description: 'Enterprise customer feedback application collecting real-time ratings via kiosks and mobile forms, calculating CSAT and weighted SLA scores, and delivering real-time manager alerts over MQTT.',
+    subtitle: 'Full-Stack Software Engineer',
+    tags: [
+      'Customer Feedback',
+      'Satisfaction Analytics',
+      'Staff Performance Scoring',
+      'Real-Time Dashboards',
+      'MQTT Messaging',
+      'Automated Alerting',
+      'Reporting & Excel Export'
+    ],
+    details: {
+      subtitle: 'Full-Stack Software Engineer',
+      description: [
+        'A customer feedback and satisfaction analytics platform integrated with service operations to collect post-service feedback through kiosk touchpoints. The platform transforms customer responses into **service-quality insights, staff performance metrics, real-time dashboards, and automated alerts**.'
+      ],
+      keyHighlights: [
+        'Customer Feedback',
+        'Satisfaction Analytics',
+        'Staff Performance Scoring',
+        'Real-Time Dashboards',
+        'MQTT Messaging',
+        'Automated Alerting',
+        'Reporting & Excel Export'
+      ],
+      highlights: [
+        'Developed the **feedback survey engine** for managing feedback sessions, emoji ratings, questions, and nested survey flows.',
+        'Implemented **feedback-to-service correlation**, linking customer responses with tickets, service sessions, branches, and serving agents.',
+        'Built the **staff performance analytics engine**, combining customer satisfaction, response rates, and operational metrics.',
+        'Developed **real-time React dashboards** with MQTT for live feedback events, KPIs, and supervisor alerts.',
+        'Created **feedback analytics and visualizations** for satisfaction trends and sentiment distribution using ApexCharts.',
+        'Implemented **reporting and Excel exports** with server-side pagination and multi-parameter filtering.',
+        'Integrated **automated SMS and email alerts** for critical or negative customer feedback.',
+        'Developed **branch and kiosk configuration interfaces** for managing feedback surveys across physical touchpoints.'
+      ],
+      technology: [
+        'Java', 'Spring Boot', 'Spring Security', 'Hibernate', 'Spring Data JPA',
+        'React', 'Redux', 'Axios', 'Material UI', 'ApexCharts',
+        'MySQL', 'JPQL', 'Native SQL', 'Apache POI',
+        'MQTT', 'ActiveMQ', 'SMS Gateway', 'JavaMail'
+      ]
+    },
+    description: 'A customer feedback and satisfaction analytics platform integrated with service operations to collect post-service feedback through kiosk touchpoints. The platform transforms customer responses into service-quality insights, staff performance metrics, real-time dashboards, and automated alerts.',
     accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
     techStackTables: {
       backendTitle: 'Backend',
       frontendTitle: 'Frontend',
       backend: [
         { area: 'Language', technology: 'Java' },
-        { area: 'Framework', technology: 'Spring Boot 2.x (modular Maven multi-module project)' },
-        { area: 'Persistence', technology: 'Spring Data JPA / Hibernate, MySQL' },
-        { area: 'Security', technology: 'Spring Security + JWT' },
-        { area: 'Reporting', technology: 'Apache POI (Excel export)' },
-        { area: 'Database Automation', technology: 'MySQL Events (scheduled stored logic) + Materialized-view style summary tables (f_mv_feedback_*)' },
-        { area: 'SMS', technology: 'SMS integration via Kiosk/Ticket pipeline' },
-        { area: 'Build & Deploy', technology: 'Maven, Bitbucket Pipelines → SFTP deploy to Apache Tomcat' }
+        { area: 'Framework', technology: 'Spring Boot, Spring Security' },
+        { area: 'ORM / Persistence', technology: 'Hibernate, Spring Data JPA, MySQL, JPQL, Native SQL' },
+        { area: 'Reporting', technology: 'Apache POI' },
+        { area: 'Integration', technology: 'MQTT (ActiveMQ), SMS Gateway, JavaMail' }
       ],
       frontend: [
-        { area: 'Framework', technology: 'React 18 (Create React App)' },
-        { area: 'State Management', technology: 'Redux + Redux Thunk' },
-        { area: 'UI Library', technology: 'Material UI (MUI v5), React Bootstrap' },
-        { area: 'Charts', technology: 'ApexCharts (react-apexcharts)' },
-        { area: 'Real-time', technology: 'MQTT (mqtt.js / paho-mqtt)' },
-        { area: 'Data Tables', technology: 'MUI Datatables (server-side pagination & sorting)' },
-        { area: 'HTTP Client', technology: 'Axios' },
-        { area: 'Routing', technology: 'React Router DOM v6' },
-        { area: 'Date Handling', technology: 'Moment.js, React Datepicker' },
-        { area: 'Notifications', technology: 'React Hot Toast, SweetAlert2' },
-        { area: 'CI/CD', technology: 'Bitbucket Pipelines → SFTP deploy + Slack notifications' }
+        { area: 'Framework', technology: 'React' },
+        { area: 'State Management', technology: 'Redux' },
+        { area: 'UI Library', technology: 'Material UI' },
+        { area: 'Charts', technology: 'ApexCharts' },
+        { area: 'HTTP Client', technology: 'Axios' }
       ]
     },
     involvementSection: {
       backend: [
         {
-          topic: 'Feedback Data Model & API Architecture',
+          topic: 'Feedback Survey Engine',
           points: [
-            'Built JPA entities (Feedback, FeedbackQuestion, FeedbackAnswer, Imoji, Weightage, QuestionsAndAnswers) and their Spring Data JPA repositories with custom @Query JPQL/SQL methods'
+            'Developed backend survey logic for sessions, emoji ratings, question definitions, and nested flows.',
+            'Linked feedback directly to queue ticket sessions to associate responses with branches and serving agents.'
           ]
         },
         {
-          topic: 'Sub-Questions Feature & Dynamic Endpoints',
+          topic: 'Alerts & Reporting Pipelines',
           points: [
-            'Extended FeedbackQuestion and FeedbackAnswer entities; designed the hierarchical question structure and added new API endpoints in FeedbackController (touched 21 files in a single feature commit)'
-          ]
-        },
-        {
-          topic: 'Suggestions Capture & Service Layer Integration',
-          points: [
-            'Added suggestion field to feedback submissions and wired it through the service layer'
-          ]
-        },
-        {
-          topic: 'Dashboard Aggregation Services',
-          points: [
-            'Built FeedbackService methods for question-wise, branch-wise, and counter-wise aggregation powering the analytics dashboard'
-          ]
-        },
-        {
-          topic: 'SMS Alerts & Pipeline Coordination',
-          points: [
-            'Triggered SMS alerts through the kiosk/ticket pipeline when feedback is submitted; modified FeedbackService, TicketServiceImpl, and KioskBean to coordinate the flow'
-          ]
-        },
-        {
-          topic: 'MySQL Events & Materialized Summary Views',
-          points: [
-            'Created and fixed CREATE EVENT evt_report_insert to periodically refresh f_mv_feedback_summary_report, f_mv_feedback_detail_report, and f_mv_feedback_sms_report tables',
-            'Debugged a GROUP BY query issue causing the scheduled event to fail in strict SQL mode'
-          ]
-        },
-        {
-          topic: 'Email Template & Notification Workflow',
-          points: [
-            'Added email template integration for post-feedback kiosk notifications'
-          ]
-        },
-        {
-          topic: 'Core Technical Solutions (Backend)',
-          points: [
-            'Spring Data JPA + @Query: Wrote custom JPQL and native SQL queries for aggregated dashboard stats (branch/counter/region filtering)',
-            'MySQL Events: Used MySQL scheduler events to simulate materialized views; fixed a GROUP BY mode incompatibility bug so the event runs correctly in strict SQL mode',
-            'Spring Security + JWT: Worked within the existing JWT filter chain; applied role-based access guards on feedback endpoints',
-            'Lombok: Reduced boilerplate on all DTO and entity classes'
+            'Integrated SMS and email alerting gateways triggered immediately on negative customer ratings.',
+            'Built custom report generation APIs with Excel downloads using Apache POI.'
           ]
         }
       ],
       frontend: [
         {
-          topic: 'Feedback Dashboard & Operational Analytics',
+          topic: 'Operator Dashboards & Analytics',
           points: [
-            'Built stat tiles (total, today, mobile count), date-range filters, branch/counter/region hierarchy dropdowns, and an all-feedbacks table with a drill-down details modal',
-            'Used MUI Datatable (server-side sort/pagination), Axios, Moment.js for date formatting, and MUI v5 components'
-          ]
-        },
-        {
-          topic: 'Token Feedback View (1,341-Line Commit)',
-          points: [
-            'Built TokenFeedbacks.js (1,341-line commit) linking feedback entries directly with queue tokens'
-          ]
-        },
-        {
-          topic: 'All Feedbacks Table & Server-side Sorting Bugfix',
-          points: [
-            'Implemented server-side sorted MUI Datatable; fixed a bug where an empty sort column crashed the backend query by enforcing givenDate DESC as safe default on the frontend'
-          ]
-        },
-        {
-          topic: 'Feedback Summary Report & SMS Reports',
-          points: [
-            'Built FeedbackReports.js, FeedbackSmsReports.js, and FeedbackSmsReport.js table with Excel download button; added new columns to the summary report'
-          ]
-        },
-        {
-          topic: 'MQTT Real-time Push Integration',
-          points: [
-            'Wired mqttService.js into dashboard components; subscribed to feedback/dashboard/branch topic for live push updates',
-            'Managed connect/subscribe/unsubscribe/disconnect in component lifecycle to prevent memory leaks (used mqtt.js / paho-mqtt — solved real-time data refresh without polling)'
-          ]
-        },
-        {
-          topic: 'ApexCharts Trend Analytics',
-          points: [
-            'Rendered line charts and donut charts for feedback trend data wired to date-filtered Axios responses'
-          ]
-        },
-        {
-          topic: 'Branch & Counter Mapping Modals',
-          points: [
-            'Built AddBranchModal.js and AddKioskModal.js to link feedback branches/counters to queue system entities'
-          ]
-        },
-        {
-          topic: 'SMS Groups & Mobile Assignment Refactor',
-          points: [
-            'Implemented email assignment to SMS groups and mobile group assignment to kiosk (large SmsGroup.js refactor)'
-          ]
-        },
-        {
-          topic: 'Kiosk Design Fixes',
-          points: [
-            'Fixed feedback value mapping bug in DesignKiosksTemplate.js; enabled question zone editing'
-          ]
-        },
-        {
-          topic: 'CI/CD Bitbucket Pipeline',
-          points: [
-            'Configured Bitbucket Pipeline (SFTP deploy + Slack notify on build & deployment success)'
-          ]
-        },
-        {
-          topic: 'Core Technical Solutions (Frontend)',
-          points: [
-            'Redux + Thunk: Managed async API state (loading/success/error) across dashboard and report pages',
-            'React Router DOM v6: Added new routes for TokenFeedbacks, SMS Reports, and dashboard pages',
-            'MUI Datatables: Solved large dataset display with server-side pagination and custom column sorting',
-            'MQTT (mqtt.js): Solved real-time dashboard refresh without polling by subscribing to live topic feeds',
-            'ApexCharts: Visualized time-series feedback trends and category breakdowns for analytics',
-            'Axios: Handled all API calls with date-range and filter params',
-            'Bitbucket Pipelines: Automated deployment pipeline with manual approval gate and Slack notification hooks'
+            'Built the satisfaction analytics dashboards featuring ApexCharts trend plots and MQTT live updates.',
+            'Implemented server-side paginated tables with advanced multi-parameter report filters.'
           ]
         }
       ]
     },
+    technical: {
+      overview: 'Customer feedback and satisfaction analytics platform integrated with counter operations.',
+      backendItems: [
+        { title: 'Feedback Survey Engine', desc: 'Custom survey flows, emoji rating configurations, and nested questions.' },
+        { title: 'Integration Pipelines', desc: 'Real-time MQTT events, SMS Alerting gateways, and Apache POI reporting.' }
+      ],
+      frontendItems: [
+        { title: 'Feedback Management Portal', desc: 'Real-time satisfaction level monitoring and physical touchpoint kiosk configuration.' }
+      ]
+    },
     product: {
-      tagline: 'Capture customer feedback at the point of experience and turn insights into instant action.',
-      impact: 'Highest contributor — 14 of ~33 commits across the frontend (yasinthav commits). Full ownership of feedback-specific dashboard, API, and reporting features.'
+      tagline: 'Transform customer feedback into real-time operational alerts and service-quality insights.',
+      whatIsIt: 'A customer feedback and satisfaction analytics platform integrated with service operations to collect post-service feedback through kiosk touchpoints.'
     }
   },
   {
     id: 'people-counting-solution',
-    title: 'People Counting Solution',
+    title: 'People Counting Solution — Footfall Analytics Platform',
     category: 'commercial',
     status: 'Commercial System',
     thumbnail: '/logo.svg',
-    subtitle: 'AI & Camera-Based Occupancy Monitoring & Retail Analytics Platform',
-    tags: ['Java', 'Spring Boot 2.x', 'React 18', 'Redux', 'PrimeReact', 'MUI v5', 'MQTT', 'Firebase', 'Apache POI'],
-    description: 'Computer-vision & IoT powered occupancy monitoring solution providing real-time footfall counting, camera device stream processing, sales conversion dashboards, and campaign analytics.',
+    link: 'https://tstpl.com/people-counting-system/',
+    subtitle: 'Full-Stack Software Engineer',
+    tags: [
+      'Real-Time People Counting',
+      'Footfall Analytics',
+      'Gender & Age Analytics',
+      'Camera Integration',
+      'Multi-Level Regional Analytics',
+      'Real-Time Dashboards',
+      'SQL Time-Series Analytics',
+      'Automated Data Archival',
+      'Reporting & Excel Export'
+    ],
+    details: {
+      subtitle: 'Full-Stack Software Engineer',
+      description: [
+        'A real-time people counting and footfall analytics platform for multi-branch retail and enterprise environments. The system collects visitor data from IP cameras and provides branch, zone, and regional insights across **footfall, gender, age demographics, visitor flow, and dwell time**.'
+      ],
+      keyHighlights: [
+        'Real-Time People Counting',
+        'Footfall Analytics',
+        'Gender & Age Analytics',
+        'Camera Integration',
+        'Multi-Level Regional Analytics',
+        'Real-Time Dashboards',
+        'SQL Time-Series Analytics',
+        'Automated Data Archival',
+        'Reporting & Excel Export'
+      ],
+      highlights: [
+        'Designed the **IP camera data ingestion pipeline** for real-time entry/exit and demographic events, including visitor deduplication and employee exclusion using facial-embedding similarity.',
+        'Developed **branch, zone, and region-level analytics APIs** for visitor counts, gender/age demographics, dwell time, peak hours, and visitor trends.',
+        'Built the **analytics engine** with date/month comparisons, hourly visitor flow, demographic analysis, and multi-branch filtering.',
+        'Implemented complex **MySQL analytics queries and recursive CTEs** for half-hourly visitor, gender, and age-group time-series data.',
+        'Developed a **scheduled data archival pipeline** to move live footfall data into historical analytics tables while maintaining dashboard performance.',
+        'Built **footfall reporting APIs** with branch, device, zone, age/gender, and sales-correlated reports with Excel export.',
+        'Developed **real-time React dashboards and analytics visualizations** using ApexCharts and MQTT-driven updates.',
+        'Implemented multi-level **regional dashboards and filtering** across country, province, district, branch, and zone hierarchies.'
+      ],
+      technology: [
+        'Java 11', 'Spring Boot', 'Spring Data JPA', 'JobRunr',
+        'React', 'Axios', 'ApexCharts', 'Paho MQTT',
+        'MySQL', 'Native SQL', 'Recursive CTEs', 'JPA Projections', 'Materialized Views',
+        'IP Cameras', 'HTTP Event Ingestion', 'Facial Embedding Matching', 'MQTT'
+      ]
+    },
+    description: 'A real-time people counting and footfall analytics platform for multi-branch retail and enterprise environments. The system collects visitor data from IP cameras and provides branch, zone, and regional insights across footfall, gender, age demographics, visitor flow, and dwell time.',
     accessInfo: 'Commercial platform deployment protected by NDA. Complete technical stack & personal involvement detailed below.',
     techStackTables: {
       backendTitle: 'Backend',
       frontendTitle: 'Frontend',
       backend: [
-        { area: 'Language', technology: 'Java' },
-        { area: 'Framework', technology: 'Spring Boot 2.x (Modular Maven)' },
-        { area: 'ORM', technology: 'Spring Data JPA, Hibernate, MySQL' },
-        { area: 'Security', technology: 'Spring Security, JWT, LDAP' },
+        { area: 'Language', technology: 'Java 11' },
+        { area: 'Framework', technology: 'Spring Boot' },
+        { area: 'ORM / Persistence', technology: 'Spring Data JPA, MySQL, Native SQL, Recursive CTEs, Materialized Views' },
         { area: 'Background Jobs', technology: 'JobRunr' },
-        { area: 'Reporting', technology: 'Apache POI (Excel)' },
-        { area: 'Device Integration', technology: 'V9 API / PCS / CubeQuery (people-counting cameras)' },
-        { area: 'CI/CD', technology: 'Maven, Bitbucket Pipelines' }
+        { area: 'Integration', technology: 'IP Cameras, HTTP Event Ingestion, Facial Embedding Matching, MQTT' }
       ],
       frontend: [
-        { area: 'Framework', technology: 'React 18' },
-        { area: 'State', technology: 'Redux + Redux Thunk' },
-        { area: 'UI Libraries', technology: 'MUI v5 + PrimeReact' },
-        { area: 'Charts', technology: 'ApexCharts, Chart.js' },
-        { area: 'Real-time', technology: 'MQTT (paho-mqtt)' },
-        { area: 'HTTP', technology: 'Axios' },
-        { area: 'Styling', technology: 'SASS' },
-        { area: 'Deployment', technology: 'Firebase Hosting' }
+        { area: 'Framework', technology: 'React' },
+        { area: 'HTTP Client', technology: 'Axios' },
+        { area: 'Charts', technology: 'ApexCharts' },
+        { area: 'Real-time', technology: 'Paho MQTT' }
       ]
     },
     involvementSection: {
       backend: [
         {
-          topic: 'JPA/Hibernate — Domain Modeling & Aggregation',
+          topic: 'IP Camera Integration & Ingestion Ingestion Pipeline',
           points: [
-            'Designed all footfall domain entities (FootfallDevice, DailyPersonAttribute, DetectedPerson, MatchedDetectedPerson, Sales, Campaign)',
-            'Wrote complex aggregation queries for hourly/daily/weekly/monthly analytics'
+            'Designed the IP camera data ingestion pipeline for real-time entry/exit and demographic events.',
+            'Implemented visitor deduplication and employee exclusion using facial-embedding similarity.'
           ]
         },
         {
-          topic: 'Device API Integration',
+          topic: 'Database Analytics & Query Optimization',
           points: [
-            'Integrated V9/PCS/CubeQuery camera APIs to ingest real-time footfall streams',
-            'Built the CubeQueryRequest access layer',
-            'Retired a separate API service by consolidating into this backend'
-          ]
-        },
-        {
-          topic: 'Analytics Pipeline',
-          points: [
-            'End-to-end: raw device events → JPA aggregation tables → REST APIs for dashboards'
-          ]
-        },
-        {
-          topic: 'Sales + Campaign Modules',
-          points: [
-            'Built full CRUD entities and services for sales conversion and marketing campaign analytics correlated with footfall data'
-          ]
-        },
-        {
-          topic: 'Employee Recognition',
-          points: [
-            'Persisted face-matched employee/visitor data for journey tracking and wait time calculation'
+            'Implemented complex MySQL analytics queries and recursive CTEs for half-hourly visitor, gender, and age-group time-series data.',
+            'Developed a scheduled data archival pipeline to move live footfall data into historical analytics tables.'
           ]
         }
       ],
       frontend: [
         {
-          topic: 'React + Redux — Dashboards & Analytics',
+          topic: 'Real-time React Dashboards',
           points: [
-            'Built the Advanced Dashboard (daily/weekly/monthly/yearly + comparison views) and Branch Dashboard',
-            'Integrated entrance counts, zone heatmaps, and "since yesterday" indicators'
-          ]
-        },
-        {
-          topic: 'ApexCharts / Chart.js Data Visualizations',
-          points: [
-            'Rendered gender/age distribution charts, hourly footfall bars, sales vs. footfall combined charts, weekly/monthly trends'
-          ]
-        },
-        {
-          topic: 'Sales Conversion Dashboard',
-          points: [
-            'Daily/monthly/weekly views with invoice data, conversion rates, and age-wise breakdowns'
-          ]
-        },
-        {
-          topic: 'Campaign Analytics',
-          points: [
-            'Campaign comparison and analytics pages integrating campaign periods with footfall + sales'
-          ]
-        },
-        {
-          topic: 'Firebase Hosting & PDF Export',
-          points: [
-            'Deployed frontend via Firebase Hosting',
-            'Made the advanced dashboard browser-downloadable as PDF'
+            'Developed real-time dashboards and analytics visualizations using React, ApexCharts, and MQTT-driven updates.',
+            'Implemented multi-level regional dashboards and filtering across country, province, district, branch, and zone hierarchies.'
           ]
         }
       ]
     },
+    technical: {
+      overview: 'A real-time people counting and footfall analytics platform for multi-branch retail and enterprise environments.',
+      backendItems: [
+        { title: 'Data Ingestion Pipeline', desc: 'Real-time entry/exit and demographic event stream ingestion from IP cameras.' },
+        { title: 'Time-Series SQL Analytics', desc: 'Complex MySQL analytics queries, recursive CTEs, and automated data archival.' }
+      ],
+      frontendItems: [
+        { title: 'React Footfall Portal', desc: 'Real-time regional dashboards and time-series footfall trends visualization.' }
+      ]
+    },
     product: {
-      tagline: 'Real-time physical space intelligence, camera footfall counting, and sales conversion analytics.',
-      impact: '36 backend commits (highest author) · 58 frontend commits'
+      tagline: 'Real-time people counting and footfall analytics platform for retail and enterprise environments.',
+      whatIsIt: 'A real-time people counting and footfall analytics platform for multi-branch retail and enterprise environments.'
     }
   },
   {
@@ -499,8 +369,32 @@ const PROJECTS_DATA = [
     status: 'Active',
     thumbnail: '/service-gateway-provider.png',
     link: 'https://vihangagunathilake.com/service-gateway',
+    demoCredentials: {
+      note: 'Use the following credentials to explore the platform:',
+      email: 'testadminservicegateway@gmail.com',
+      password: 'admin',
+    },
     subtitle: 'Full-Stack Service Management & Intelligent Job Scheduling Platform',
     tags: ['Java 21', 'Spring Boot 3.5', 'React 19', 'Kafka', 'WebSocket', 'STOMP', 'PWA', 'MySQL'],
+    details: {
+      subtitle: 'Workflow & Service Management Platform',
+      description: [
+        'A full-stack service management platform that enables organizations to define services, workflows, service points, pricing, operating hours, and customer jobs.',
+        'The platform automatically manages customer job requests and determines suitable service slots based on configured business rules and service availability.',
+      ],
+      highlights: [
+        'Dynamic service configuration',
+        'Workflow management',
+        'Service-point allocation',
+        'Job scheduling',
+        'Authentication and authorization',
+        'JWT-based security',
+        'Payment and down-payment workflows',
+        'REST API architecture',
+        'React-based administration interface',
+      ],
+      technology: ['Java', 'Spring Boot', 'Spring Security', 'JWT', 'JPA', 'MySQL', 'React', 'Nginx', 'Linux'],
+    },
     description: 'A full-stack service management platform that digitizes and automates how service businesses manage customer jobs, agents, scheduling, and real-time operations.',
     accessInfo: 'Full-stack service platform featuring a custom greedy time-slot optimization scheduling algorithm and Kafka event-driven alerts.',
     techStackTables: {
@@ -636,12 +530,12 @@ const PROJECTS_DATA = [
 const getProjectIdFromUrl = () => {
   if (typeof window === 'undefined') return null;
   const path = window.location.pathname;
-  const pathMatch = path.match(/^\/(?:projects|project)\/([^\/]+)/i);
+  const pathMatch = path.match(/^\/(?:projects|project)\/([^/]+)/i);
   if (pathMatch && pathMatch[1]) {
     return pathMatch[1];
   }
   const hash = window.location.hash;
-  const hashMatch = hash.match(/^#\/?(?:projects|project)\/([^\/]+)/i);
+  const hashMatch = hash.match(/^#\/?(?:projects|project)\/([^/]+)/i);
   if (hashMatch && hashMatch[1]) {
     return hashMatch[1];
   }
@@ -649,6 +543,19 @@ const getProjectIdFromUrl = () => {
 };
 
 function App() {
+  // Theme
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('portfolio-theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
+
+  // Project routing
   const [selectedProject, setSelectedProject] = useState(() => {
     const initialId = getProjectIdFromUrl();
     if (initialId) {
@@ -659,8 +566,10 @@ function App() {
   const [isLoadingProject, setIsLoadingProject] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const commercialProjects = PROJECTS_DATA.filter((p) => p.category === 'commercial');
-  const personalProjects = PROJECTS_DATA.filter((p) => p.category === 'personal');
+  const featuredProjects = PROJECTS_DATA.filter(
+    (p) => ['queue-management-system', 'people-counting-solution', 'gateway-provider'].includes(p.id)
+  );
+  const allProjects = PROJECTS_DATA;
 
   const handleProjectClick = (project, isComingSoon = false) => {
     if (isComingSoon) {
@@ -674,14 +583,21 @@ function App() {
           window.history.pushState({ projectId: project.id }, '', `/projects/${project.id}`);
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 500);
+      }, 400);
     }
   };
 
   const handleBackToHome = () => {
     setSelectedProject(null);
     window.history.pushState(null, '', '/');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   useEffect(() => {
@@ -694,16 +610,13 @@ function App() {
         setSelectedProject(null);
       }
     };
-
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   useEffect(() => {
     if (showToast) {
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
+      const timer = setTimeout(() => setShowToast(false), 3000);
       return () => clearTimeout(timer);
     }
   }, [showToast]);
@@ -712,122 +625,80 @@ function App() {
     <div className="App">
       {isLoadingProject && (
         <div className="loader-overlay">
-          <div className="loader-spinner"></div>
-          <div className="loader-text">Configuring Gateway Environment...</div>
+          <div className="loader-spinner" />
+          <div className="loader-text">Loading project...</div>
         </div>
       )}
 
       <Header
-        onNavigate={(view) => {
-          if (view === 'home') handleBackToHome();
-        }}
+        onNavigate={(view) => { if (view === 'home') handleBackToHome(); }}
         currentView={selectedProject ? 'project' : 'home'}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {selectedProject ? (
-        <ProjectDetails
-          project={selectedProject}
-          onBack={handleBackToHome}
-        />
+        <ProjectDetails project={selectedProject} onBack={handleBackToHome} />
       ) : (
         <>
+          {/* 1. HERO */}
           <Hero />
 
-          <section className="section container" id="projects" style={{ borderBottom: '1px solid var(--border-color)' }}>
-            <div className="section-header">
-              <p className="hero-subtitle" style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>Portfolio</p>
-              <h2 className="section-title">Featured Projects</h2>
-              <p className="section-desc">Explore enterprise systems and gateways built with scalable architectures.</p>
-            </div>
+          {/* 2. ENGINEERING SUMMARY */}
+          <EngineeringSummary />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
-              <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--accent-cyan)', fontFamily: 'var(--font-heading)' }}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                  </svg>
-                  Commercial Projects
-                </h3>
-                {commercialProjects.length > 0 ? (
-                  <div className="projects-list">
-                    {commercialProjects.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        onClick={handleProjectClick}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div style={{
-                    background: 'var(--bg-card)',
-                    border: '1px dashed rgba(6, 182, 212, 0.2)',
-                    borderRadius: '16px',
-                    padding: '2.5rem',
-                    textAlign: 'center',
-                    backdropFilter: 'blur(10px)'
-                  }}>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', margin: 0 }}>
-                      Company and client projects are protected by Non-Disclosure Agreements (NDAs). Case studies and references can be discussed in detail upon request.
-                    </p>
-                  </div>
-                )}
-              </div>
+          {/* 3. FEATURED PROJECTS */}
+          <section className="projects-section container" id="projects">
+            <p className="section-label">Portfolio</p>
+            <h2 className="section-title">Featured Projects</h2>
+            <p className="section-desc">Enterprise systems and platforms built with scalable architectures.</p>
 
-              <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--accent-purple)', fontFamily: 'var(--font-heading)' }}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  Personal Projects
-                </h3>
-                {personalProjects.length > 0 ? (
-                  <div className="projects-list">
-                    {personalProjects.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        onClick={handleProjectClick}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <p style={{ color: 'var(--text-muted)' }}>No personal projects found.</p>
-                )}
-              </div>
+            {/* All projects — single unified grid */}
+            <div className="projects-3col">
+              {allProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} onClick={handleProjectClick} />
+              ))}
             </div>
           </section>
 
-          <About />
+          {/* 4. EXPERIENCE */}
+          <Experience />
 
+          {/* 5. TECHNICAL EXPERTISE */}
           <Skills />
+
+          {/* 6. ENGINEERING JOURNEY */}
+          <Timeline />
+
+          {/* 8. EDUCATION */}
+          <Education />
+
+          {/* 9. CONTACT */}
+          <Contact />
         </>
       )}
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--border-color)', padding: '3rem 0', marginTop: '6rem', background: 'var(--bg-secondary)' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
-          <p style={{ color: 'var(--text-secondary)' }}>
-            © {new Date().getFullYear()} Vihanga Gunathilake. All rights reserved.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <a href="https://github.com/vihanga951016" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)' }}>GitHub</a>
-            <a href="https://www.linkedin.com/in/yasintha-gunathilake/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)' }}>LinkedIn</a>
+      <footer className="footer">
+        <div className="container footer-inner">
+          <p className="footer-copy">© {new Date().getFullYear()} Vihanga Gunathilake. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="https://github.com/vihanga951016" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
+            <a href="https://www.linkedin.com/in/vihanga-gunathilake/" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
+            <a href="mailto:hmyvihangagunathilake@gmail.com" className="footer-link">Email</a>
           </div>
         </div>
       </footer>
 
-      {/* Toast alert for Coming Soon items */}
+      {/* Toast */}
       {showToast && (
         <div className="toast">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" strokeWidth="2.5">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-light)" strokeWidth="2.5">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          <span>This project is coming soon and cannot be viewed yet!</span>
+          <span>This project is coming soon!</span>
         </div>
       )}
     </div>
