@@ -14,6 +14,45 @@ function ProjectDetails({ project, onBack }) {
     });
   };
 
+  const renderExternalLink = () => {
+    if (!project.link || project.category === 'commercial') return null;
+
+    const title = project.id === 'gateway-provider' ? 'Access to Live' : 'More Information';
+
+    return (
+      <div className="pd-section">
+        <h2 className="pd-section-title">{title}</h2>
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pd-ext-link"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          {project.link}
+        </a>
+
+        {project.demoCredentials && (
+          <div className="pd-credentials">
+            <p className="pd-credentials-note">{project.demoCredentials.note}</p>
+            <div className="pd-credentials-row">
+              <span className="pd-credentials-label">Email</span>
+              <code className="pd-credentials-value">{project.demoCredentials.email}</code>
+            </div>
+            <div className="pd-credentials-row">
+              <span className="pd-credentials-label">Password</span>
+              <code className="pd-credentials-value">{project.demoCredentials.password}</code>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section className="detail-view container">
       {/* Back Button */}
@@ -52,10 +91,15 @@ function ProjectDetails({ project, onBack }) {
         </div>
       )}
 
+      {/* External Link for Service Gateway (Top) */}
+      {project.id === 'gateway-provider' && renderExternalLink()}
+
       {/* Engineering Highlights */}
       {project.details?.highlights && (
         <div className="pd-section">
-          <h2 className="pd-section-title">My Involvement</h2>
+          {project.details.highlightsTitle !== null && (
+            <h2 className="pd-section-title">{project.details.highlightsTitle || 'My Involvement'}</h2>
+          )}
           <ul className="pd-highlights">
             {project.details.highlights.map((item, i) => (
               <li key={i} className="pd-highlight-item">
@@ -85,47 +129,29 @@ function ProjectDetails({ project, onBack }) {
       {project.details?.technology && (
         <div className="pd-section">
           <h2 className="pd-section-title">Technology</h2>
-          <div className="pd-tech-tags">
+          <div className="pd-tech-tags" style={{ marginBottom: project.details.architectureImage ? '1.5rem' : '0' }}>
             {project.details.technology.map((tech, i) => (
               <span key={i} className="pd-tech-tag">{tech}</span>
             ))}
           </div>
-        </div>
-      )}
-
-      {/* External link */}
-      {project.link && project.category !== 'commercial' && (
-        <div className="pd-section">
-          <h2 className="pd-section-title">More Information</h2>
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pd-ext-link"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            {project.link}
-          </a>
-
-          {project.demoCredentials && (
-            <div className="pd-credentials">
-              <p className="pd-credentials-note">{project.demoCredentials.note}</p>
-              <div className="pd-credentials-row">
-                <span className="pd-credentials-label">Email</span>
-                <code className="pd-credentials-value">{project.demoCredentials.email}</code>
+          {project.details.architectureImage && (
+            <div className="pd-architecture" style={{ marginTop: '1.5rem', width: '100%' }}>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>System Architecture</h3>
+              <div style={{ width: '100%', overflow: 'visible' }}>
+                <img src={project.details.architectureImage} alt={`${project.title} Architecture`} style={{ width: '100%', height: 'auto', display: 'block' }} />
               </div>
-              <div className="pd-credentials-row">
-                <span className="pd-credentials-label">Password</span>
-                <code className="pd-credentials-value">{project.demoCredentials.password}</code>
-              </div>
+              {project.details.architectureImage2 && (
+                <div style={{ width: '100%', overflow: 'visible', marginTop: '1.5rem' }}>
+                  <img src={project.details.architectureImage2} alt={`${project.title} Architecture Part 2`} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                </div>
+              )}
             </div>
           )}
         </div>
       )}
+
+      {/* External Link for Non-Service-Gateway Projects (Bottom) */}
+      {project.id !== 'gateway-provider' && renderExternalLink()}
 
       {/* Fallback: if no details shape, show tags from old data */}
       {!project.details && project.tags && (

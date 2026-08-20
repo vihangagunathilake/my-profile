@@ -364,7 +364,7 @@ const PROJECTS_DATA = [
   },
   {
     id: 'gateway-provider',
-    title: 'Service Gateway',
+    title: 'Service Gateway — Service Booking & Scheduling Platform',
     category: 'personal',
     status: 'Active',
     thumbnail: '/service-gateway-provider.png',
@@ -374,145 +374,116 @@ const PROJECTS_DATA = [
       email: 'testadminservicegateway@gmail.com',
       password: 'admin',
     },
-    subtitle: 'Full-Stack Service Management & Intelligent Job Scheduling Platform',
-    tags: ['Java 21', 'Spring Boot 3.5', 'React 19', 'Kafka', 'WebSocket', 'STOMP', 'PWA', 'MySQL'],
+    subtitle: 'Designer & Developer',
+    tags: [
+      'Custom Scheduling Algorithm',
+      'Java / Spring Boot',
+      'React',
+      'STOMP / WebSocket',
+      'Two-Phase Reservations',
+      'PWA'
+    ],
     details: {
-      subtitle: 'Workflow & Service Management Platform',
+      subtitle: 'Designer & Developer',
       description: [
-        'A full-stack service management platform that enables organizations to define services, workflows, service points, pricing, operating hours, and customer jobs.',
-        'The platform automatically manages customer job requests and determines suitable service slots based on configured business rules and service availability.',
+        'Service Gateway is a multi-tenant appointment platform for service businesses with multiple locations, service points, and staff. It enables customers to book single or bundled services while automatically allocating available service points and time slots without double-booking or wasting capacity.'
       ],
+      keyHighlights: [
+        'Custom Scheduling Algorithm',
+        'Service-Point Allocation',
+        'Multi-Service Booking',
+        'Two-Phase Reservations',
+        'Real-Time Communication',
+        'Role-Based Security',
+        'React Booking Platform'
+      ],
+      highlightsTitle: 'What I Built',
       highlights: [
-        'Dynamic service configuration',
-        'Workflow management',
-        'Service-point allocation',
-        'Job scheduling',
-        'Authentication and authorization',
-        'JWT-based security',
-        'Payment and down-payment workflows',
-        'REST API architecture',
-        'React-based administration interface',
+        'Designed a custom **greedy scheduling algorithm** that allocates multi-service bookings across available service points while minimizing conflicts and preserving capacity for remaining services.',
+        'Built a **two-phase booking workflow** using provisional reservations and final confirmation, with automated expiration of abandoned and no-show bookings.',
+        'Implemented **multi-service and bundled bookings**, prioritizing a single service point where possible and intelligently splitting services across multiple points when required.',
+        'Developed the **booking-to-job workflow**, including check-in, job status management, rescheduling, transfers, completion, cancellation, and job-level audit tracking.',
+        'Built **real-time communication** using Spring Events and STOMP/WebSocket for live job, check-in, and staffing updates.',
+        'Implemented **JWT authentication** and permission-based authorization across a modular Spring Boot backend.',
+        'Developed optimized **native SQL and JPQL queries** for service availability, booking conflicts, service-point allocation, and scheduled reservation cleanup.',
+        'Developed the **React booking and management platform**, including schedule visualization, live dashboards, service-point management, and PWA support.'
       ],
-      technology: ['Java', 'Spring Boot', 'Spring Security', 'JWT', 'JPA', 'MySQL', 'React', 'Nginx', 'Linux'],
+      technology: [
+        'Java', 'Spring Boot', 'Spring Security', 'JWT', 'Hibernate/JPA',
+        'React', 'MUI', 'Ant Design', 'Axios',
+        'MySQL', 'Native SQL', 'JPQL', 'STOMP/WebSocket', 'SockJS',
+        'PWA', 'Service Worker'
+      ],
+      architectureImage: '/images/sg_archi.png',
+      architectureImage2: '/images/sg_archi2.png'
     },
-    description: 'A full-stack service management platform that digitizes and automates how service businesses manage customer jobs, agents, scheduling, and real-time operations.',
-    accessInfo: 'Full-stack service platform featuring a custom greedy time-slot optimization scheduling algorithm and Kafka event-driven alerts.',
+    description: 'Service Gateway is a multi-tenant appointment platform for service businesses with multiple locations, service points, and staff. It enables customers to book single or bundled services while automatically allocating available service points and time slots without double-booking or wasting capacity.',
+    accessInfo: 'Full-stack service platform featuring a custom greedy scheduling algorithm and real-time STOMP/WebSocket updates.',
     techStackTables: {
       backendTitle: 'Backend',
       frontendTitle: 'Frontend',
       backend: [
-        { area: 'Backend Language', technology: 'Java 21' },
-        { area: 'Backend Framework', technology: 'Spring Boot 3.5' },
-        { area: 'Security', technology: 'Spring Security + JWT (JJWT)' },
-        { area: 'Database', technology: 'MySQL + Spring Data JPA (Hibernate)' },
-        { area: 'Messaging / Events', technology: 'Apache Kafka' },
-        { area: 'Real-time Push', technology: 'WebSocket (STOMP via SimpMessagingTemplate)' },
-        { area: 'Email', technology: 'Spring Mail + Thymeleaf (HTML templates)' },
-        { area: 'Scheduling', technology: 'Spring @Scheduled tasks' },
-        { area: 'In-Memory Cache', technology: 'Spring Cache (ConcurrentMapCache)' },
-        { area: 'Architecture', technology: 'Multi-module Maven monorepo' }
+        { area: 'Language', technology: 'Java' },
+        { area: 'Framework', technology: 'Spring Boot' },
+        { area: 'Security', technology: 'Spring Security, JWT' },
+        { area: 'ORM / Persistence', technology: 'Hibernate/JPA, MySQL, Native SQL, JPQL' },
+        { area: 'Real-time Messaging', technology: 'STOMP/WebSocket, Spring Events' }
       ],
       frontend: [
-        { area: 'Framework', technology: 'React 19' },
-        { area: 'UI Libraries', technology: 'Material UI (MUI), Ant Design, Lucide Icons' },
-        { area: 'Routing', technology: 'React Router v7' },
+        { area: 'Framework', technology: 'React' },
+        { area: 'UI Libraries', technology: 'MUI, Ant Design' },
         { area: 'HTTP Client', technology: 'Axios' },
-        { area: 'WebSocket Client', technology: 'STOMP.js + SockJS' },
-        { area: 'PWA', technology: 'Service Worker (offline support + install prompt)' },
-        { area: 'Utilities', technology: 'Lombok, Apache Commons, Moment.js' },
-        { area: 'Build Tool', technology: 'Maven (backend), Create React App (frontend)' }
+        { area: 'Real-time Client', technology: 'STOMP/WebSocket, SockJS' },
+        { area: 'Mobile Support', technology: 'PWA, Service Worker' }
       ]
     },
     involvementSection: {
-      title: 'How Each Technology Solves a Problem',
+      title: 'Implementation & Contributions',
       backend: [
         {
-          topic: 'Java 21 + Spring Boot 3.5 — Modular Monolith Architecture',
+          topic: 'Custom Greedy Scheduling Algorithm',
           points: [
-            'Multi-module monorepo design (user_module, job_module, service_module, notification_module, dashboard_module, common_module, web_module) keeping each business domain isolated and maintainable',
-            'Exposed REST APIs consumed by the React 19 single page application'
+            'Designed an optimization algorithm that allocates multi-service bookings across available service points while minimizing conflicts and preserving capacity.'
           ]
         },
         {
-          topic: 'Spring Security + JWT — Method-Level Security & RBAC',
+          topic: 'Two-Phase Reservations & Job Workflow',
           points: [
-            'Custom JwtAuthenticationFilter validating tokens on every API request',
-            'Method-level security (@EnableMethodSecurity) enforcing role-based access control (RBAC) at the service layer',
-            'CustomAccessDeniedHandler returning clean JSON error payloads'
+            'Built a two-phase booking workflow with provisional reservations, final confirmations, and automated cleanup.',
+            'Developed check-in, status management, transfers, rescheduling, and job-level audit tracking.'
           ]
         },
         {
-          topic: 'Spring Data JPA + MySQL — Efficient Data Queries & Projections',
+          topic: 'Real-Time Communication & Security',
           points: [
-            'Mapped domain entities (Job, JobAtPoint, ServicePoint, User, Customer)',
-            'Custom JPQL and native queries (getCompressedJobsByPoint, getAvailableServicesIds) powering the scheduling engine',
-            'JPA projection interfaces (ServiceTimeProjection, JobTimelineProjection) preventing database over-fetching'
-          ]
-        },
-        {
-          topic: 'Custom Job Scheduling Algorithm — Greedy Time-Slot Optimization',
-          points: [
-            'Designed and built a greedy time-slot optimization algorithm in PrepareJobSubMethods from scratch',
-            'Loops through requested services and available service points to find the earliest free time slot without overlaps',
-            'Detects gaps between scheduled jobs and fills them intelligently to minimize customer wait times'
-          ]
-        },
-        {
-          topic: 'Apache Kafka — Event-Driven Decoupling',
-          points: [
-            'Decoupled job events (job timeouts, customer arrivals) from the alert pipeline',
-            'Published CustomerArrivedTrigger and TimeoutJobListener events for independent consumer processing'
-          ]
-        },
-        {
-          topic: 'WebSocket (STOMP + SimpMessagingTemplate) — Live Push Telemetry',
-          points: [
-            'Delivered real-time notifications to specific users via WebSocket topic /topic/notifications/{userId}',
-            'Auto-refreshed manager and agent dashboards on live job-serving events'
-          ]
-        },
-        {
-          topic: 'Spring @Scheduled Tasks & Spring Cache',
-          points: [
-            'JobTimeoutScheduler marking overdue jobs and DeleteExpiredJobsScheduler purging stale data',
-            'Cached role permissions in-memory via ConcurrentMapCacheManager to minimize DB overhead on API calls'
-          ]
-        },
-        {
-          topic: 'Spring Mail + Thymeleaf',
-          points: [
-            'Rendered responsive HTML email templates via Thymeleaf for automated account notifications'
+            'Built WebSocket push telemetry using Spring Events and STOMP for live updates.',
+            'Implemented JWT-based authentication and permission-based authorization across domain modules.'
           ]
         }
       ],
       frontend: [
         {
-          topic: 'React 19 + React Router v7 — Role-Aware SPA Routing',
+          topic: 'React Booking & Management Platform',
           points: [
-            'Single Page Application with protected routes (ProtectedRoute)',
-            'Role-aware routing redirecting agents to /my-jobs and managers to /dashboard',
-            'Global UI state management using React Context API (ThemeContext, CurrencyContext)'
-          ]
-        },
-        {
-          topic: 'MUI + Ant Design + Lucide Icons — Component System',
-          points: [
-            'MUI Skeleton loaders, Tooltips, and DataGrid layout structures',
-            'Ant Design time pickers and form controls combined with lightweight Lucide SVG icons'
-          ]
-        },
-        {
-          topic: 'WebSocket Client & Progressive Web App (PWA)',
-          points: [
-            'STOMP.js + SockJS client integration for reliable real-time push subscriptions',
-            'Service Worker caching app shell for offline resilience with native home screen install prompt'
+            'Built UI for schedule visualization, live dashboards, service-point management, and PWA offline support.'
           ]
         }
       ]
     },
+    technical: {
+      overview: 'Service Booking & Scheduling Platform for multi-tenant appointment operations.',
+      backendItems: [
+        { title: 'Custom Greedy Scheduler', desc: 'Allocates multi-service bookings while avoiding overlaps.' },
+        { title: 'Two-Phase Booking', desc: 'Handles provisional holds and automated expiration of no-shows.' },
+        { title: 'STOMP/WebSocket Push', desc: 'Real-time state and dashboard updates powered by Spring Events.' }
+      ],
+      frontendItems: [
+        { title: 'React Management App', desc: 'Visual schedule boards, operator dashboards, and PWA installation.' }
+      ]
+    },
     product: {
-      tagline: 'Book a service. Watch it run itself.',
-      impact: 'Full-Stack Creator & Lead Architect — Custom Greedy Job Scheduling Engine, Kafka Telemetry Bus & PWA.'
+      tagline: 'Service Booking & Scheduling Platform',
+      impact: 'Sole Designer & Developer — Custom scheduling algorithm, two-phase reservation system, and real-time dashboard.'
     }
   },
   {
